@@ -20,13 +20,13 @@ const config: HardhatUserConfig = {
   networks: {
     baseTestnet: {
       url: "https://intensive-tame-sound.base-sepolia.quiknode.pro/4eebc97d37bc1e1c22d663a99a3ddbb0a4cf41c5/",
-      chainId: 11155420,
+      chainId: 84532,
       accounts: [process.env.PRIVATE_KEY!],
     },
   },
   etherscan: {
     apiKey: {
-      baseTestnet: process.env.ETHERSCAN_KEY!,
+      baseSepolia: process.env.ETHERSCAN_KEY!,
     },
   },
 };

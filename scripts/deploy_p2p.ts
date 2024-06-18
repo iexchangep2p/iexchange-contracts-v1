@@ -1,7 +1,8 @@
 import { ethers } from "hardhat";
+import p2pArgs from "../contract-args/p2p";
 
 async function main() {
-  const shadow = await ethers.deployContract("OptimisticP2P");
+  const shadow = await ethers.deployContract("OptimisticP2P", p2pArgs);
 
   await shadow.waitForDeployment();
 

@@ -31,7 +31,7 @@ abstract contract OffchainAgent is Ownable, Helpers {
     }
 
     function removeAgent(address _agent) external onlyOwner {
-        agent[_agent] = false;
+        delete agent[_agent];
         emit AgentRemoved(_agent);
     }
 }

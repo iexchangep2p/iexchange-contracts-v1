@@ -34,7 +34,7 @@ contract KYCWhitelist is IKYCWhitelist, OffchainAgent {
             revert InvalidDowngrade();
         }
         addressKYCLevel[_address] = _level;
-        emit KYCLevelUpgraded(_address, msg.sender, _level);
+        emit KYCLevelDowngraded(_address, msg.sender, _level);
     }
 
     function getKYCLevel(address _address) external view returns (KYCLevel) {

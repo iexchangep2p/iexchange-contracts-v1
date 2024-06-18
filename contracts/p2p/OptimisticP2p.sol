@@ -28,7 +28,8 @@ contract OptimisticP2P is P2Pparams, Ownable, ReentrancyGuard, Helpers {
         uint256 _daoMinTime,
         uint256 _concurrentSettlerSettlements,
         uint256 _concurrentMerchantSettlements,
-        uint256 _appealAfter
+        uint256 _appealAfter,
+        uint256 _maxAppealRounds
     ) Ownable(msg.sender) {
         daoAddress = _daoAddress;
         kycAddress = IKYCWhitelist(_kycAddress);
@@ -42,6 +43,7 @@ contract OptimisticP2P is P2Pparams, Ownable, ReentrancyGuard, Helpers {
         concurrentSettlerSettlements = _concurrentSettlerSettlements;
         concurrentMerchantSettlements = _concurrentMerchantSettlements;
         appealAfter = _appealAfter;
+        maxAppealRounds = _maxAppealRounds;
     }
 
     function addToken(address token) external onlyOwner {
