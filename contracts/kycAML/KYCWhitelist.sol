@@ -8,8 +8,36 @@ import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 // import "hardhat/console.sol";
 
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+import "../interfaces/IKYCWhitelist.sol";
 import "./OffchainAgent.sol";
 
-contract KYCWhitelist is  OffchainAgent {
+contract KYCWhitelist is IKYCWhitelist, OffchainAgent {
+    mapping(address => KYCLevel) public addressKYCLevel;
     constructor() Ownable(msg.sender) {}
+
+    function upgradeKYCLevel(
+        address _address,
+        KYCLevel _level
+    ) external onlyAgent {
+        if (_level <= addressKYCLevel[_address]) {
+            revert InvalidUpgrade();
+        }
+        addressKYCLevel[_address] = _level;
+        emit KYCLevelUpgraded(_address, msg.sender, _level);
+    }
+
+    function downgradeKYCLevel(
+        address _address,
+        KYCLevel _level
+    ) external onlyAgent {
+        if (_level >= addressKYCLevel[_address]) {
+            revert InvalidDowngrade();
+        }
+        addressKYCLevel[_address] = _level;
+        emit KYCLevelUpgraded(_address, msg.sender, _level);
+    }
+
+    function getKYCLevel(address _address) external view returns (KYCLevel) {
+        return addressKYCLevel[_address];
+    }
 }

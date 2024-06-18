@@ -3,299 +3,145 @@ pragma solidity ^0.8.26;
 
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+
+import "../interfaces/IAMLBlacklist.sol";
+import "../interfaces/IKYCWhitelist.sol";
 import "../utils/helpers.sol";
+
+import "./P2Pparams.sol";
 
 //Uncomment this line to use console.log
 // import "hardhat/console.sol";
 
-contract OptimisticP2P is Ownable, Helpers {
-    enum OrderState {
-        pending,
-        accepted,
-        paid,
-        appealed,
-        released,
-        cancelled
-    }
-    enum AppealDecision {
-        release,
-        cancel,
-        unvoted
-    }
-    enum TradeType {
-        buy,
-        sell
-    }
-
-    struct Merchant {
-        bool active;
-    }
-    struct Settler {
-        bool active;
-    }
-    struct Trader {
-        bool active;
-    }
-    struct Offer {
-        address token;
-        string currency;
-        bytes32 paymentMethod;
-        uint256 rate;
-        uint256 minOrder;
-        uint256 maxOrder;
-        bool active;
-        address merchant;
-        bytes32 accountHash;
-        address depositAddress;
-        TradeType offerType;
-    }
-    struct Order {
-        uint256 offerId;
-        address trader;
-        TradeType orderType;
-        uint256 quantity;
-        address depositAddress;
-        bytes32 accountHash;
-        uint256 appealId;
-        OrderState status;
-    }
-    struct AppealVote {
-        address settler;
-        bool settled;
-        AppealDecision settlerVote;
-        AppealDecision merchantVote;
-        AppealDecision traderVote;
-    }
-    struct Appeal {
-        uint256 orderId;
-        address appealer;
-        bytes32 reasonHash;
-        AppealDecision daoVote;
-        AppealDecision appealDecision;
-        AppealVote[] votes;
+contract OptimisticP2P is P2Pparams, Ownable, ReentrancyGuard, Helpers {
+    constructor(
+        address _daoAddress,
+        IKYCWhitelist _kycAddress,
+        IAMLBlacklist _amlAddress,
+        IERC20Metadata _usdtAddress,
+        uint256 _merchantStakeAmount,
+        uint256 _settlerStakeAmount,
+        uint256 _settlerMinTime,
+        uint256 _settlerMaxTime,
+        uint256 _daoMinTime,
+        uint256 _concurrentSettlerSettlements,
+        uint256 _concurrentMerchantSettlements,
+        uint256 _appealAfter
+    ) Ownable(msg.sender) {
+        daoAddress = _daoAddress;
+        kycAddress = IKYCWhitelist(_kycAddress);
+        amlAddress = IAMLBlacklist(_amlAddress);
+        usdtAddress = IERC20Metadata(_usdtAddress);
+        merchantStakeAmount = _merchantStakeAmount;
+        settlerStakeAmount = _settlerStakeAmount;
+        settlerMinTime = _settlerMinTime;
+        settlerMaxTime = _settlerMaxTime;
+        daoMinTime = _daoMinTime;
+        concurrentSettlerSettlements = _concurrentSettlerSettlements;
+        concurrentMerchantSettlements = _concurrentMerchantSettlements;
+        appealAfter = _appealAfter;
     }
 
-    address public daoAddress;
-    address public kycAddress;
-    mapping(address => Merchant) public merchants;
-    mapping(address => mapping(address => uint256)) public merchantStakes; // merchant -> token -> amount
-    mapping(address => mapping(address => uint256)) public merchantOrders; // merchant -> token -> amount
-    mapping(address => Settler) public settlers;
-    mapping(address => mapping(address => uint256)) public settlerStakes; // settler -> token -> amount
-    mapping(address => mapping(address => uint256)) public settlerSettlements; // settler -> token -> amount
-    mapping(address => Trader) public traders;
-    mapping(address => bool) public tradedTokens;
-    Offer[] public offers;
-    Order[] public orders;
-    Appeal[] public appeals;
-
-    event NewMerchant(address indexed merchant);
-    event NewSettler(address indexed settler);
-    event NewTrader(address indexed trader);
-    event NewOffer(
-        address indexed token,
-        string indexed currency,
-        bytes32 indexed paymentMethod,
-        uint256 offerId,
-        uint256 rate,
-        uint256 minOrder,
-        uint256 maxOrder,
-        bool active,
-        address merchant,
-        bytes32 accountHash,
-        address depositAddress,
-        TradeType offerType
-    );
-    event OfferDisabled(uint256 indexed offerId, bool indexed active);
-    event OfferEnabled(uint256 indexed offerId, bool indexed active);
-    event NewOrder(
-        uint256 indexed offerId,
-        address indexed trader,
-        TradeType indexed orderType,
-        uint256 quantity,
-        address depositAddress,
-        bytes32 accountHash,
-        uint256 appealId,
-        OrderState status
-    );
-    event OrderAccepted(uint256 indexed orderId, OrderState status);
-    event OrderPaid(uint256 indexed orderId, OrderState status);
-    event OrderReleased(uint256 indexed orderId, OrderState status);
-    event OrderCancelled(uint256 indexed orderId, OrderState status);
-    event OrderAppealed(
-        uint256 indexed orderId,
-        uint256 indexed appealId,
-        address indexed appealer,
-        bytes32 reasonHash,
-        AppealDecision daoVote,
-        AppealDecision appealDecision,
-        OrderState status
-    );
-    event SettlerVoted(
-        uint256 indexed appealId,
-        address indexed settler,
-        bool indexed settled,
-        AppealDecision settlerVote,
-        AppealDecision merchantVote,
-        AppealDecision traderVote
-    );
-    event MerchantVoted(
-        uint256 indexed appealId,
-        address indexed merchant,
-        bool indexed settled,
-        AppealDecision vote,
-        AppealDecision merchantVote,
-        AppealDecision traderVote
-    );
-    event TraderVoted(
-        uint256 indexed appealId,
-        address indexed trader,
-        bool indexed settled,
-        AppealDecision vote,
-        AppealDecision merchantVote,
-        AppealDecision traderVote
-    );
-    event DAOVoted(uint256 indexed appealId, AppealDecision daoVote);
-    event PenaltySlashed(
-        uint256 indexed orderId,
-        uint256 indexed appealId,
-        address[] affected
-    );
-    event RewardDistributed(
-        uint256 indexed orderId,
-        uint256 indexed appealId,
-        address[] beneficiaries
-    );
-    event SettlerStaked(
-        address indexed settler,
-        address indexed token,
-        uint256 indexed amount
-    );
-    event MerchantStaked(
-        address indexed merchant,
-        address indexed token,
-        uint256 indexed amount
-    );
-    event SettlerUnstaked(
-        address indexed settler,
-        address indexed token,
-        uint256 indexed amount
-    );
-    event MerchantUnstaked(
-        address indexed merchant,
-        address indexed token,
-        uint256 indexed amount
-    );
-    event TokenAdded(address indexed token);
-    event TokenRemoved(address indexed token);
-
-    error UnauthorizedUser(string messsage);
-    error NonTradeToken();
-    error InsufficientMerchantCapacity();
-    error InvalidOfferId(uint256 offerId);
-    error InvalidOrderId(uint256 orderId);
-    error InvalidAppeal(uint256 appealId);
-
-    constructor() Ownable(msg.sender) {
-        daoAddress = msg.sender;
+    function addToken(address token) external onlyOwner {
+        tradedTokens[token] = true;
+        emit TokenAdded(msg.sender, token);
     }
 
-    modifier onlyTraders() {
-        if (!traders[msg.sender].active) {
-            revert UnauthorizedUser("onlyTraders");
-        }
-        _;
+    function removeToken(address token) external onlyOwner isTradeToken(token) {
+        delete tradedTokens[token];
+        emit TokenRemoved(msg.sender, token);
     }
 
-    modifier onlyMerchants() {
-        if (!merchants[msg.sender].active) {
-            revert UnauthorizedUser("onlyMerchants");
-        }
-        _;
+    function addPaymentMethod(string memory _paymentMethod) external onlyOwner {
+        acceptedPaymentMethods[_paymentMethod] = true;
+        emit PaymentMethodAdded(msg.sender, _paymentMethod);
     }
 
-    modifier isOfferMerchant(uint256 offerId) {
-        if(offers[offerId].merchant != msg.sender) {
-            revert UnauthorizedUser("notOfferMerchant");
-        }
-        _; 
+    function removePaymentMethod(
+        string memory _paymentMethod
+    ) external onlyOwner isSupportedPaymentMethod(_paymentMethod) {
+        delete acceptedPaymentMethods[_paymentMethod];
+        emit PaymentMethodRemoved(msg.sender, _paymentMethod);
     }
 
-    modifier onlySettlers() {
-        if (!settlers[msg.sender].active) {
-            revert UnauthorizedUser("onlySettlers");
-        }
-        _;
+    function addCurrency(string memory currency) external onlyOwner {
+        acceptedCurrencies[currency] = true;
+        emit CurrencyAdded(msg.sender, currency);
     }
 
-    modifier isTradeToken(address token) {
-        if (!tradedTokens[token]) {
-            revert NonTradeToken();
-        }
-        _;
+    function removeCurrency(
+        string memory currency
+    ) external onlyOwner isSupportedCurrency(currency) {
+        delete acceptedCurrencies[currency];
+        emit CurrencyRemoved(msg.sender, currency);
     }
 
-    modifier isValidOffer(uint256 offerId) {
-        if (offers[offerId].token == address(0)) {
-            revert InvalidOrderId(offerId);
-        }
-        _;
-    }
-
-    modifier isValidOrder(uint256 orderId) {
-        if (orders[orderId].trader == address(0)) {
-            revert InvalidOrderId(orderId);
-        }
-        _;
-    }
-
-    modifier isValidAppeal(uint256 appealId) {
-        if (appeals[appealId].appealer == address(0)) {
-            revert InvalidAppeal(appealId);
-        }
-        _;
-    }
-
-    modifier orderAccess(uint256 orderId) {
-        Order storage order = orders[orderId];
-        Offer storage offer = offers[order.offerId];
-        require(msg.sender == order.trader || msg.sender == offer.merchant);
-        _;
-    }
-
-    modifier appealAccess(uint256 appealId) {
-        _;
-    }
-
-    function merchantCapacity(
-        address merchant,
-        address token
-    ) internal view returns (uint256) {
-        return
-            merchantStakes[merchant][token] - merchantOrders[merchant][token];
-    }
-
-    function settlerCapacity(
-        address settler,
-        address token
-    ) internal view returns (uint256) {
-        return
-            settlerStakes[settler][token] - settlerSettlements[settler][token];
-    }
-
-    function registerMerchant() external {
+    function registerMerchant() external noBlacklisted {
         merchants[msg.sender] = Merchant(true);
+        this.stakeMerchant(merchantStakeAmount);
         emit NewMerchant(msg.sender);
     }
 
-    function registerSettler() external {
+    function registerSettler() external noBlacklisted {
         settlers[msg.sender] = Settler(true);
+        this.stakeSettler(merchantStakeAmount);
         emit NewSettler(msg.sender);
     }
 
-    function registerTrader() internal {
+    function registerTrader() internal noBlacklisted {
         traders[msg.sender] = Trader(true);
         emit NewTrader(msg.sender);
+    }
+
+    function stakeSettler(
+        uint256 amount
+    ) external nonReentrant noBlacklisted onlySettlers {
+        if (amount < settlerStakeAmount) {
+            revert InvalidSettlerStake(amount);
+        }
+        SafeERC20.safeTransferFrom(
+            usdtAddress,
+            msg.sender,
+            address(this),
+            amount
+        );
+        emit SettlerStaked(msg.sender, amount);
+    }
+
+    function setterUnstake() external nonReentrant onlySettlers {
+        uint256 amount = settlerStake[msg.sender];
+        settlerStake[msg.sender] = 0;
+        SafeERC20.safeTransfer(usdtAddress, msg.sender, amount);
+        emit SettlerUnstaked(msg.sender, amount);
+    }
+
+    function stakeMerchant(
+        uint256 amount
+    ) external nonReentrant noBlacklisted onlyMerchants {
+        if (amount < merchantStakeAmount) {
+            revert InvalidMerchantStake(amount);
+        }
+        SafeERC20.safeTransferFrom(
+            usdtAddress,
+            msg.sender,
+            address(this),
+            amount
+        );
+        emit MerchantStaked(msg.sender, amount);
+    }
+
+    function merchantUnstake()
+        external
+        nonReentrant
+        noBlacklisted
+        onlyMerchants
+    {
+        uint256 amount = merchantStake[msg.sender];
+        merchantStake[msg.sender] = 0;
+        SafeERC20.safeTransfer(usdtAddress, msg.sender, amount);
+        emit MerchantUnstaked(msg.sender, amount);
     }
 
     function createOffer(
@@ -310,13 +156,12 @@ contract OptimisticP2P is Ownable, Helpers {
         TradeType offerType
     )
         external
+        nonReentrant
         onlyMerchants
         isTradeToken(token)
         positiveAddress(depositAddress)
     {
-        if (merchantCapacity(msg.sender, token) < maxOrder) {
-            revert InsufficientMerchantCapacity();
-        }
+        validateMerchant(msg.sender);
         offers.push(
             Offer(
                 token,
@@ -329,7 +174,8 @@ contract OptimisticP2P is Ownable, Helpers {
                 msg.sender,
                 accountHash,
                 depositAddress,
-                offerType
+                offerType,
+                block.timestamp
             )
         );
         emit NewOffer(
@@ -350,27 +196,43 @@ contract OptimisticP2P is Ownable, Helpers {
 
     function disableOffer(
         uint256 offerId
-    ) external onlyMerchants isValidOffer(offerId) isOfferMerchant(offerId) {
+    )
+        external
+        nonReentrant
+        onlyMerchants
+        isValidOffer(offerId)
+        isOfferMerchant(offerId)
+    {
         offers[offerId].active = false;
         emit OfferDisabled(offerId, false);
     }
 
-    function enableOffer(uint256 offerId) external onlyMerchants isOfferMerchant(offerId){
-        offers[offerId].active = true; 
+    function enableOffer(
+        uint256 offerId
+    ) external nonReentrant onlyMerchants isOfferMerchant(offerId) {
+        offers[offerId].active = true;
         emit OfferEnabled(offerId, true);
     }
 
-    function createOrder( 
+    function createOrder(
         uint256 offerId,
         TradeType orderType,
         uint256 quantity,
         address depositAddress,
         bytes32 accountHash
-    ) external positiveAddress(depositAddress) isValidOffer(offerId) {
+    )
+        external
+        nonReentrant
+        noBlacklisted
+        positiveAddress(depositAddress)
+        isValidOffer(offerId)
+        validKYCLevel(IKYCWhitelist.KYCLevel.level1)
+    {
         Offer storage offer = offers[offerId];
-        require(quantity < merchantCapacity(offer.merchant, offer.token));
-        require(quantity < offer.maxOrder);
-        merchantOrders[offer.merchant][offer.token] += quantity;
+        validateMerchant(offer.merchant);
+        if (quantity > offer.maxOrder) {
+            revert OfferMaxExceeded(quantity, offer.maxOrder);
+        }
         if (orderType == TradeType.sell) {
             SafeERC20.safeTransferFrom(
                 IERC20(offer.token),
@@ -378,9 +240,6 @@ contract OptimisticP2P is Ownable, Helpers {
                 address(this),
                 quantity
             );
-        } else if(orderType == TradeType.buy) {
-            merchantOrders[offer.merchant][offer.token] -= quantity;
-            SafeERC20.safeTransferFrom(IERC20(offer.token), offer.merchant, address(this), quantity); 
         }
         orders.push(
             Order(
@@ -391,9 +250,11 @@ contract OptimisticP2P is Ownable, Helpers {
                 depositAddress,
                 accountHash,
                 0,
-                OrderState.pending
+                OrderState.pending,
+                block.timestamp
             )
         );
+        incrementMerchantOrders(offer.merchant);
         emit NewOrder(
             offerId,
             msg.sender,
@@ -406,66 +267,185 @@ contract OptimisticP2P is Ownable, Helpers {
         );
     }
 
-    function acceptOrder(uint256 orderId) external isValidOrder(orderId) {
+    function acceptOrder(
+        uint256 orderId
+    ) external nonReentrant isValidOrder(orderId) {
         Order storage order = orders[orderId];
         Offer storage offer = offers[order.offerId];
-        require(order.status == OrderState.pending);
-        require(msg.sender == offer.merchant);
+        if (msg.sender != offer.merchant) {
+            revert UnauthorizedUser("Invalid Merchant!");
+        }
+        if (order.status != OrderState.pending) {
+            revert InvalidStateForAction(order.status, OrderState.pending);
+        }
+        if (order.orderType == TradeType.sell) {
+            revert AcceptNotRequiredForSell();
+        }
+
         order.status = OrderState.accepted;
+
+        SafeERC20.safeTransferFrom(
+            IERC20(offer.token),
+            msg.sender,
+            address(this),
+            order.quantity
+        );
         emit OrderAccepted(orderId, OrderState.accepted);
     }
 
-    function payOrder(uint256 orderId) external isValidOrder(orderId) {
+    function payOrder(
+        uint256 orderId
+    ) external nonReentrant isValidOrder(orderId) {
         Order storage order = orders[orderId];
         Offer storage offer = offers[order.offerId];
         if (order.orderType == TradeType.sell) {
-            require(order.status == OrderState.pending);
-            require(msg.sender == offer.merchant);
+            if (order.status != OrderState.pending) {
+                revert InvalidStateForAction(order.status, OrderState.pending);
+            }
+            if (msg.sender != offer.merchant) {
+                revert UnauthorizedUser("Invalid Merchant!");
+            }
         } else {
-            require(order.status == OrderState.accepted);
-            require(msg.sender == order.trader);
+            if (order.status != OrderState.accepted) {
+                revert InvalidStateForAction(order.status, OrderState.accepted);
+            }
+            if (msg.sender != order.trader) {
+                revert UnauthorizedUser("Invalid Trader!");
+            }
         }
         order.status = OrderState.paid;
         emit OrderReleased(orderId, OrderState.paid);
     }
 
-    function releaseOrder(uint256 orderId) external isValidOrder(orderId) {
+    function releaseOrder(
+        uint256 orderId
+    ) external nonReentrant isValidOrder(orderId) {
         Order storage order = orders[orderId];
         Offer storage offer = offers[order.offerId];
-        require(
-            order.status == OrderState.paid
-        );
+        if (order.status != OrderState.paid) {
+            revert InvalidStateForAction(order.status, OrderState.paid);
+        }
         order.status = OrderState.released;
-        merchantOrders[offer.merchant][offer.token] -= order.quantity;
         if (order.orderType == TradeType.sell) {
-            require(msg.sender == order.trader);
-            merchantStakes[offer.merchant][offer.token] += order.quantity;
+            if (msg.sender != order.trader) {
+                revert UnauthorizedUser("Invalid Trader!");
+            }
             SafeERC20.safeTransfer(
                 IERC20(offer.token),
                 offer.merchant,
                 order.quantity
             );
         } else {
-            require(msg.sender == offer.merchant);
-            merchantStakes[offer.merchant][offer.token] -= order.quantity;
+            if (msg.sender != offer.merchant) {
+                revert UnauthorizedUser("Invalid Merchant!");
+            }
             SafeERC20.safeTransfer(
                 IERC20(offer.token),
                 order.trader,
                 order.quantity
             );
         }
+        decrementMerchantOrders(offer.merchant);
         emit OrderReleased(orderId, OrderState.released);
+    }
+
+    function _releaseAfterSettle(uint256 orderId) private {
+        Order storage order = orders[orderId];
+        Offer storage offer = offers[order.offerId];
+        order.status = OrderState.released;
+        if (order.orderType == TradeType.sell) {
+            SafeERC20.safeTransfer(
+                IERC20(offer.token),
+                offer.merchant,
+                order.quantity
+            );
+        } else {
+            SafeERC20.safeTransfer(
+                IERC20(offer.token),
+                order.trader,
+                order.quantity
+            );
+        }
+        decrementMerchantOrders(offer.merchant);
+        emit OrderReleased(orderId, OrderState.released);
+    }
+    function cancelOrder(
+        uint256 orderId
+    ) external nonReentrant isValidOrder(orderId) {
+        Order storage order = orders[orderId];
+        Offer storage offer = offers[order.offerId];
+        if (order.orderType == TradeType.sell) {
+            if (order.status != OrderState.pending) {
+                revert InvalidStateForAction(order.status, OrderState.paid);
+            }
+            if (msg.sender != offer.merchant) {
+                revert UnauthorizedUser("Invalid Merchant!");
+            }
+            order.status = OrderState.cancelled;
+            SafeERC20.safeTransfer(
+                IERC20(offer.token),
+                order.trader,
+                order.quantity
+            );
+        } else {
+            order.status = OrderState.cancelled;
+            if (order.status == OrderState.pending) {
+                if (msg.sender != offer.merchant) {
+                    revert UnauthorizedUser("Invalid Merchant!");
+                }
+            } else if (order.status == OrderState.accepted) {
+                if (msg.sender != order.trader) {
+                    revert UnauthorizedUser("Invalid Trader!");
+                }
+                SafeERC20.safeTransfer(
+                    IERC20(offer.token),
+                    offer.merchant,
+                    order.quantity
+                );
+            } else {
+                revert InvalidStateForAction(order.status, OrderState.accepted);
+            }
+        }
+        decrementMerchantOrders(offer.merchant);
+        emit OrderCancelled(orderId, OrderState.cancelled);
+    }
+
+    function _cancelAferSettle(uint256 orderId) private {
+        Order storage order = orders[orderId];
+        Offer storage offer = offers[order.offerId];
+        order.status = OrderState.cancelled;
+        if (order.orderType == TradeType.sell) {
+            SafeERC20.safeTransfer(
+                IERC20(offer.token),
+                order.trader,
+                order.quantity
+            );
+        } else {
+            SafeERC20.safeTransfer(
+                IERC20(offer.token),
+                offer.merchant,
+                order.quantity
+            );
+        }
+        decrementMerchantOrders(offer.merchant);
+        emit OrderCancelled(orderId, OrderState.cancelled);
     }
 
     function appealOrder(
         uint256 orderId,
         bytes32 reasonHash
-    ) external isValidOrder(orderId) {
+    ) external nonReentrant isValidOrder(orderId) nonEmptyReason(reasonHash) {
         Order storage order = orders[orderId];
         Offer storage offer = offers[order.offerId];
-        require(order.status == OrderState.paid);
-        require(msg.sender == order.trader || msg.sender == offer.merchant);
-        require(order.appealId == 0); 
+        if (order.status != OrderState.paid) {
+            revert InvalidStateForAction(order.status, OrderState.paid);
+        }
+        if (msg.sender != order.trader || msg.sender != offer.merchant) {
+            revert UnauthorizedUser("Invalid Merchant or Trader!");
+        }
+        if (order.appealId != 0) {
+            revert OrderAlreadyAppealed();
+        }
         uint256 appealId = appeals.length + 1;
         appeals[appealId] = Appeal(
             orderId,
@@ -473,7 +453,9 @@ contract OptimisticP2P is Ownable, Helpers {
             reasonHash,
             AppealDecision.unvoted,
             AppealDecision.unvoted,
-            new AppealVote[](0)
+            new AppealVote[](0),
+            address(0),
+            block.timestamp
         );
         order.appealId = appealId;
         emit OrderAppealed(
@@ -486,135 +468,186 @@ contract OptimisticP2P is Ownable, Helpers {
             OrderState.appealed
         );
     }
-    function cancelOrder(uint256 orderId) public isValidOrder(orderId) {
-        Order storage order = orders[orderId];
-        Offer storage offer = offers[order.offerId];
-        require(msg.sender == order.trader || msg.sender == offer.merchant);
-        require(
-                order.status == OrderState.pending ||
-                order.status == OrderState.accepted
-        );
-        merchantOrders[offer.merchant][offer.token] -= order.quantity;
-        order.status = OrderState.cancelled;
-        if (order.orderType == TradeType.sell) {
-                SafeERC20.safeTransfer(
-                    IERC20(offer.token),
-                    order.trader,
-                    order.quantity
-                );
-        } else {
-            SafeERC20.safeTransfer(IERC20(offer.token), offer.merchant, order.quantity);
+
+    function _roundOver(AppealVote storage _round) private view returns (bool) {
+        return
+            (_round.settlerVote != AppealDecision.unvoted) &&
+            (_round.traderVote != AppealDecision.unvoted) &&
+            (_round.merchantVote != AppealDecision.unvoted);
+    }
+
+    function _settlerVoted(
+        AppealVote storage _round
+    ) private view returns (bool) {
+        return _round.settlerVote != AppealDecision.unvoted;
+    }
+
+    function _appealOver(Appeal storage _appeal) private view returns (bool) {
+        if (_appeal.votes.length >= maxAppealRounds) {
+            return _roundOver(_appeal.votes[_roundId(_appeal.votes.length)]);
         }
-        emit OrderCancelled(orderId, OrderState.cancelled);
+
+        return false;
     }
 
-    function addToken(address token) external onlyOwner {
-        tradedTokens[token] = true;
-        emit TokenAdded(token);
+    function _roundId(uint256 _length) private pure returns (uint256) {
+        if (_length == 0) {
+            return 0;
+        } else {
+            return _length - 1;
+        }
     }
 
-    function removeToken(address token) external onlyOwner isTradeToken(token) {
-        tradedTokens[token] = false;
-        emit TokenRemoved(token);
+    function pickCase(
+        uint256 appealId
+    ) external nonReentrant onlySettlers isValidAppeal(appealId) {
+        validateSettler(msg.sender);
+        Appeal storage appeal = appeals[appealId];
+        if (appeal.currentSettler != address(0)) {
+            if ((block.timestamp - appeal.settlerPickTime) < settlerMaxTime) {
+                revert SettlingInProgress(appeal.currentSettler);
+            }
+            AppealVote storage round = appeal.votes[
+                _roundId(appeal.votes.length)
+            ];
+            if (_settlerVoted(round) && !_roundOver(round)) {
+                revert SettlingInProgress(appeal.currentSettler);
+            }
+        }
+        appeal.currentSettler = msg.sender;
+        appeal.settlerPickTime = block.timestamp;
+        incrementSettlerSettlements(msg.sender);
+        emit SettlerAssignedToCase(msg.sender, appealId);
     }
 
-    function settlerStake(address token, uint256 amount) external onlySettlers {
-        settlerStakes[msg.sender][token] += amount;
-        SafeERC20.safeTransferFrom(
-            IERC20(token),
-            msg.sender,
-            address(this),
-            amount
-        );
-        emit SettlerStaked(msg.sender, token, amount);
-    }
-
-    function setterUnstake(
-        address token,
-        uint256 amount
-    ) external onlySettlers {
-        require(amount < settlerCapacity(msg.sender, token));
-        settlerStakes[msg.sender][token] -= amount;
-        SafeERC20.safeTransfer(IERC20(token), msg.sender, amount);
-        emit SettlerUnstaked(msg.sender, token, amount);
-    }
-
-    function merchantStake(
-        address token,
-        uint256 amount
-    ) external onlyMerchants isTradeToken(token) {
-        merchantStakes[msg.sender][token] += amount;
-        SafeERC20.safeTransferFrom(
-            IERC20(token),
-            msg.sender,
-            address(this),
-            amount
-        );
-        emit MerchantStaked(msg.sender, token, amount);
-    }
-
-    function merchantUnstake(
-        address token,
-        uint256 amount
-    ) external onlyMerchants {
-        require(amount < merchantCapacity(msg.sender, token));
-        merchantStakes[msg.sender][token] -= amount;
-        SafeERC20.safeTransfer(IERC20(token), msg.sender, amount);
-        emit MerchantUnstaked(msg.sender, token, amount);
-    }
-
-//! Reference point
     function traderVote(
         uint256 appealId,
         AppealDecision vote
-    ) external onlyTraders isValidAppeal(appealId) {
+    )
+        external
+        nonReentrant
+        onlyTraders
+        isValidVote(vote)
+        isValidAppeal(appealId)
+    {
         Appeal storage appeal = appeals[appealId];
-        //loop through AppealVote[] votes to get AppealDecision
-        uint256 appealVotesLength = appeal.votes.length;
-        for (uint256 i = 0; i < appealVotesLength; i++) {
-            if(appeal.votes[i].traderVote == AppealDecision.unvoted) {
-                appeal.votes[i].traderVote = vote;
-                return;
-            }
+        uint256 roundId = _roundId(appeal.votes.length);
+        AppealVote storage round = appeal.votes[roundId];
+        if (round.settlerVote == AppealDecision.unvoted) {
+            revert SettlerNotVoted(roundId);
         }
-        emit TraderVoted(appealId, msg.sender, false, vote, vote, vote);
+        if (round.traderVote != AppealDecision.unvoted) {
+            revert TraderAlreadyVoted(roundId);
+        }
+        round.traderVote = vote;
+        if (_roundOver(round)) {
+            bool merchantSettlerAgree = round.traderVote == round.settlerVote;
+            bool traderSettlerAgree = round.traderVote == round.settlerVote;
+            bool merchantTraderAgree = round.traderVote == round.traderVote;
+            round.settled =
+                merchantSettlerAgree &&
+                traderSettlerAgree &&
+                merchantTraderAgree;
+        }
+        if (round.settled) {
+            if (vote == AppealDecision.release) {
+                _releaseAfterSettle(appeal.orderId);
+            } else if (vote == AppealDecision.cancel) {
+                _cancelAferSettle(appeal.orderId);
+            }
+            appeal.appealDecision = vote;
+        }
+        emit TraderVoted(appealId, msg.sender, round.settled, vote, roundId);
     }
-
 
     function merchantVote(
         uint256 appealId,
         AppealDecision vote
-    ) external onlyMerchants isValidAppeal(appealId) {
+    )
+        external
+        nonReentrant
+        onlyMerchants
+        isValidVote(vote)
+        isValidAppeal(appealId)
+    {
         Appeal storage appeal = appeals[appealId];
-        uint256 appealVotesLength = appeal.votes.length;
-        for(uint256 i = 0; i < appealVotesLength; i++) {
-            if(appeal.votes[i].merchantVote == AppealDecision.unvoted) {
-                appeal.votes[i].merchantVote == vote;
-                return;
+        uint256 roundId = _roundId(appeal.votes.length);
+        AppealVote storage round = appeal.votes[roundId];
+        if (round.settlerVote == AppealDecision.unvoted) {
+            revert SettlerNotVoted(roundId);
+        }
+        if (round.merchantVote != AppealDecision.unvoted) {
+            revert MerchantAlreadyVoted(roundId);
+        }
+        round.merchantVote = vote;
+        if (_roundOver(round)) {
+            bool merchantSettlerAgree = round.merchantVote == round.settlerVote;
+            bool traderSettlerAgree = round.traderVote == round.settlerVote;
+            bool merchantTraderAgree = round.merchantVote == round.traderVote;
+            round.settled =
+                merchantSettlerAgree &&
+                traderSettlerAgree &&
+                merchantTraderAgree;
+        }
+        if (round.settled) {
+            appeal.appealDecision = vote;
+            if (vote == AppealDecision.release) {
+                _releaseAfterSettle(appeal.orderId);
+            } else if (vote == AppealDecision.cancel) {
+                _cancelAferSettle(appeal.orderId);
             }
         }
-        emit MerchantVoted(appealId, msg.sender, false, vote, vote, vote);
+        emit MerchantVoted(appealId, msg.sender, round.settled, vote, roundId);
     }
 
     function settlerVote(
         uint256 appealId,
         AppealDecision vote
-    ) external onlySettlers isValidAppeal(appealId) {
+    )
+        external
+        nonReentrant
+        onlySettlers
+        isValidVote(vote)
+        isValidAppeal(appealId)
+    {
         Appeal storage appeal = appeals[appealId];
-        uint256 appealsVoteLength = appeal.votes.length;
-        for (uint256 i = 0; i < appealsVoteLength; i++) {
-            if(appeal.votes[i].settlerVote == AppealDecision.unvoted) { 
-                appeal.votes[i].settlerVote == vote;
-                return;
+        if (appeal.currentSettler != msg.sender) {
+            revert SettlingInProgress(appeal.currentSettler);
+        }
+        if (appeal.appealDecision != AppealDecision.unvoted) {
+            revert AppealOver(appealId);
+        }
+        uint256 roundId = _roundId(appeal.votes.length);
+        AppealVote storage round = appeal.votes[roundId];
+        if (round.settlerVote == AppealDecision.unvoted) {
+            revert SettlerAlreadyVoted(roundId);
+        }
+        if (roundId > 0) {
+            AppealVote storage previousRound = appeal.votes[roundId - 1];
+            if (!_roundOver(previousRound)) {
+                revert PreviousRoundOngoing(roundId - 1);
             }
         }
-        emit SettlerVoted(appealId, msg.sender, true, vote, vote, vote);
+        round.settler = msg.sender;
+        round.settlerVote = vote;
+        emit SettlerVoted(appealId, msg.sender, false, vote, roundId);
     }
 
     function daoVote(
         uint256 appealId,
         AppealDecision vote
-    ) external onlySettlers {
+    ) external nonReentrant onlyDAO isValidVote(vote) isValidAppeal(appealId) {
+        Appeal storage appeal = appeals[appealId];
+        if (!_appealOver(appeal)) {
+            revert AppealInProgress(appealId);
+        }
+        appeal.daoVote = vote;
+        appeal.appealDecision = vote;
+        if (vote == AppealDecision.release) {
+            _releaseAfterSettle(appeal.orderId);
+        } else if (vote == AppealDecision.cancel) {
+            _cancelAferSettle(appeal.orderId);
+        }
         emit DAOVoted(appealId, vote);
     }
 }

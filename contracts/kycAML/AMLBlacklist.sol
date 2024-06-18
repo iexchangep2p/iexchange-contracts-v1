@@ -4,9 +4,10 @@ pragma solidity ^0.8.26;
 //Uncomment this line to use console.log
 // import "hardhat/console.sol";
 
+import "../interfaces/IAMLBlacklist.sol";
 import "./OffchainAgent.sol";
 
-contract AMLBlacklist is OffchainAgent {
+contract AMLBlacklist is IAMLBlacklist, OffchainAgent {
     struct Blacklist {
         address _address;
         uint256 _addedAt;
@@ -16,20 +17,14 @@ contract AMLBlacklist is OffchainAgent {
     uint256 public minRemovePeriod = 24 hours; // when address is added to a blacklist it can't be removed until after this period
     constructor() Ownable(msg.sender) {}
 
-    error MinBlackListPeriodNotEnded(uint256 _timeToEnd);
-
-    event BlacklistAdded(address _address);
-    event BlacklistRemoved(address _address);
-
     function addBlacklist(address _address) external onlyAgent {
         blacklist[_address] = Blacklist(_address, block.timestamp);
-        emit BlacklistAdded(_address);
+        emit BlacklistAdded(_address, msg.sender);
     }
 
     function removeBlacklist(address _address) external onlyAgent {
-
         delete blacklist[_address];
-        emit BlacklistRemoved(_address);
+        emit BlacklistRemoved(_address, msg.sender);
     }
 
     function isBlacklisted(address _address) external view returns (bool) {
