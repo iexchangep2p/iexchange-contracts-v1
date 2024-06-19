@@ -232,6 +232,7 @@ contract OptimisticP2P is P2Pparams, Ownable, ReentrancyGuard, Helpers {
     {
         Offer storage offer = offers[offerId];
         validateMerchant(offer.merchant);
+        uint256 orderId = orders.length;
         if (quantity > offer.maxOrder) {
             revert OfferMaxExceeded(quantity, offer.maxOrder);
         }
@@ -258,9 +259,10 @@ contract OptimisticP2P is P2Pparams, Ownable, ReentrancyGuard, Helpers {
         );
         incrementMerchantOrders(offer.merchant);
         emit NewOrder(
-            offerId,
+            orderId,
             msg.sender,
             orderType,
+            offerId,
             quantity,
             depositAddress,
             accountHash,

@@ -6,7 +6,7 @@ async function main() {
     process.env.KYC!
   );
 
-  await shadow.upgradeKYCLevel("0x8DB769ccD2f5946a94fCe8b3Ad9a296D5309c36c", 3);
+  await shadow.upgradeKYCLevel("0xbd8904cD5F3b8383D3B90bCFa52E9Ca3f48E4163", 3);
 
   console.log("Address Whitelisted ...");
 }

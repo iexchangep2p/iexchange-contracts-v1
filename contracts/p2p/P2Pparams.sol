@@ -126,9 +126,10 @@ abstract contract P2Pparams {
     event OfferDisabled(uint256 indexed offerId, bool indexed active);
     event OfferEnabled(uint256 indexed offerId, bool indexed active);
     event NewOrder(
-        uint256 indexed offerId,
+        uint256 indexed orderId,
         address indexed trader,
         TradeType indexed orderType,
+        uint256 offerId,
         uint256 quantity,
         address depositAddress,
         bytes32 accountHash,
