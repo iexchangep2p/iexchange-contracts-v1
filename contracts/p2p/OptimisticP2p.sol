@@ -46,6 +46,37 @@ contract OptimisticP2P is P2Pparams, Ownable, ReentrancyGuard, Helpers {
         maxAppealRounds = _maxAppealRounds;
     }
 
+    function updateProtocolParams(
+        address _daoAddress,
+        IKYCWhitelist _kycAddress,
+        IAMLBlacklist _amlAddress,
+        IERC20Metadata _usdtAddress,
+        uint256 _merchantStakeAmount,
+        uint256 _settlerStakeAmount,
+        uint256 _settlerMinTime,
+        uint256 _settlerMaxTime,
+        uint256 _daoMinTime,
+        uint256 _concurrentSettlerSettlements,
+        uint256 _concurrentMerchantSettlements,
+        uint256 _appealAfter,
+        uint256 _maxAppealRounds
+    ) external onlyOwner {
+        daoAddress = _daoAddress;
+        kycAddress = IKYCWhitelist(_kycAddress);
+        amlAddress = IAMLBlacklist(_amlAddress);
+        usdtAddress = IERC20Metadata(_usdtAddress);
+        merchantStakeAmount = _merchantStakeAmount;
+        settlerStakeAmount = _settlerStakeAmount;
+        settlerMinTime = _settlerMinTime;
+        settlerMaxTime = _settlerMaxTime;
+        daoMinTime = _daoMinTime;
+        concurrentSettlerSettlements = _concurrentSettlerSettlements;
+        concurrentMerchantSettlements = _concurrentMerchantSettlements;
+        appealAfter = _appealAfter;
+        maxAppealRounds = _maxAppealRounds;
+        emit ProtocolParamsUpdated();
+    }
+
     function addToken(address token) external onlyOwner {
         tradedTokens[token] = true;
         emit TokenAdded(msg.sender, token);
@@ -82,24 +113,22 @@ contract OptimisticP2P is P2Pparams, Ownable, ReentrancyGuard, Helpers {
 
     function registerMerchant() external noBlacklisted {
         merchants[msg.sender] = Merchant(true);
-        this.stakeMerchant(merchantStakeAmount);
+        stakeMerchant(merchantStakeAmount);
         emit NewMerchant(msg.sender);
     }
 
     function registerSettler() external noBlacklisted {
         settlers[msg.sender] = Settler(true);
-        this.stakeSettler(merchantStakeAmount);
+        stakeSettler(merchantStakeAmount);
         emit NewSettler(msg.sender);
     }
 
-    function registerTrader() internal noBlacklisted {
+    function registerTrader() external noBlacklisted {
         traders[msg.sender] = Trader(true);
         emit NewTrader(msg.sender);
     }
 
-    function stakeSettler(
-        uint256 amount
-    ) external nonReentrant noBlacklisted onlySettlers {
+    function stakeSettler(uint256 amount) internal onlySettlers {
         if (amount < settlerStakeAmount) {
             revert InvalidSettlerStake(amount);
         }
@@ -112,7 +141,7 @@ contract OptimisticP2P is P2Pparams, Ownable, ReentrancyGuard, Helpers {
         emit SettlerStaked(msg.sender, amount);
     }
 
-    function setterUnstake() external nonReentrant onlySettlers {
+    function setterUnstake() external onlySettlers {
         uint256 amount = settlerStake[msg.sender];
         settlerStake[msg.sender] = 0;
         SafeERC20.safeTransfer(usdtAddress, msg.sender, amount);
@@ -121,7 +150,7 @@ contract OptimisticP2P is P2Pparams, Ownable, ReentrancyGuard, Helpers {
 
     function stakeMerchant(
         uint256 amount
-    ) external nonReentrant noBlacklisted onlyMerchants {
+    ) internal noBlacklisted {
         if (amount < merchantStakeAmount) {
             revert InvalidMerchantStake(amount);
         }
@@ -134,12 +163,7 @@ contract OptimisticP2P is P2Pparams, Ownable, ReentrancyGuard, Helpers {
         emit MerchantStaked(msg.sender, amount);
     }
 
-    function merchantUnstake()
-        external
-        nonReentrant
-        noBlacklisted
-        onlyMerchants
-    {
+    function merchantUnstake() external noBlacklisted onlyMerchants {
         uint256 amount = merchantStake[msg.sender];
         merchantStake[msg.sender] = 0;
         SafeERC20.safeTransfer(usdtAddress, msg.sender, amount);
@@ -149,7 +173,7 @@ contract OptimisticP2P is P2Pparams, Ownable, ReentrancyGuard, Helpers {
     function createOffer(
         address token,
         string memory currency,
-        bytes32 paymentMethod,
+        string memory paymentMethod,
         uint256 rate,
         uint256 minOrder,
         uint256 maxOrder,
@@ -158,7 +182,6 @@ contract OptimisticP2P is P2Pparams, Ownable, ReentrancyGuard, Helpers {
         TradeType offerType
     )
         external
-        nonReentrant
         onlyMerchants
         isTradeToken(token)
         positiveAddress(depositAddress)
@@ -198,33 +221,25 @@ contract OptimisticP2P is P2Pparams, Ownable, ReentrancyGuard, Helpers {
 
     function disableOffer(
         uint256 offerId
-    )
-        external
-        nonReentrant
-        onlyMerchants
-        isValidOffer(offerId)
-        isOfferMerchant(offerId)
-    {
+    ) external onlyMerchants isValidOffer(offerId) isOfferMerchant(offerId) {
         offers[offerId].active = false;
         emit OfferDisabled(offerId, false);
     }
 
     function enableOffer(
         uint256 offerId
-    ) external nonReentrant onlyMerchants isOfferMerchant(offerId) {
+    ) external onlyMerchants isOfferMerchant(offerId) {
         offers[offerId].active = true;
         emit OfferEnabled(offerId, true);
     }
 
     function createOrder(
         uint256 offerId,
-        TradeType orderType,
         uint256 quantity,
         address depositAddress,
         bytes32 accountHash
     )
         external
-        nonReentrant
         noBlacklisted
         positiveAddress(depositAddress)
         isValidOffer(offerId)
@@ -236,7 +251,8 @@ contract OptimisticP2P is P2Pparams, Ownable, ReentrancyGuard, Helpers {
         if (quantity > offer.maxOrder) {
             revert OfferMaxExceeded(quantity, offer.maxOrder);
         }
-        if (orderType == TradeType.sell) {
+        incrementMerchantOrders(offer.merchant);
+        if (offer.offerType == TradeType.sell) {
             SafeERC20.safeTransferFrom(
                 IERC20(offer.token),
                 msg.sender,
@@ -248,7 +264,7 @@ contract OptimisticP2P is P2Pparams, Ownable, ReentrancyGuard, Helpers {
             Order(
                 offerId,
                 msg.sender,
-                orderType,
+                offer.offerType,
                 quantity,
                 depositAddress,
                 accountHash,
@@ -257,11 +273,10 @@ contract OptimisticP2P is P2Pparams, Ownable, ReentrancyGuard, Helpers {
                 block.timestamp
             )
         );
-        incrementMerchantOrders(offer.merchant);
         emit NewOrder(
             orderId,
             msg.sender,
-            orderType,
+            offer.offerType,
             offerId,
             quantity,
             depositAddress,
@@ -271,9 +286,7 @@ contract OptimisticP2P is P2Pparams, Ownable, ReentrancyGuard, Helpers {
         );
     }
 
-    function acceptOrder(
-        uint256 orderId
-    ) external nonReentrant isValidOrder(orderId) {
+    function acceptOrder(uint256 orderId) external isValidOrder(orderId) {
         Order storage order = orders[orderId];
         Offer storage offer = offers[order.offerId];
         if (msg.sender != offer.merchant) {
@@ -297,9 +310,7 @@ contract OptimisticP2P is P2Pparams, Ownable, ReentrancyGuard, Helpers {
         emit OrderAccepted(orderId, OrderState.accepted);
     }
 
-    function payOrder(
-        uint256 orderId
-    ) external nonReentrant isValidOrder(orderId) {
+    function payOrder(uint256 orderId) external isValidOrder(orderId) {
         Order storage order = orders[orderId];
         Offer storage offer = offers[order.offerId];
         if (order.orderType == TradeType.sell) {
@@ -318,12 +329,10 @@ contract OptimisticP2P is P2Pparams, Ownable, ReentrancyGuard, Helpers {
             }
         }
         order.status = OrderState.paid;
-        emit OrderReleased(orderId, OrderState.paid);
+        emit OrderPaid(orderId, OrderState.paid);
     }
 
-    function releaseOrder(
-        uint256 orderId
-    ) external nonReentrant isValidOrder(orderId) {
+    function releaseOrder(uint256 orderId) external isValidOrder(orderId) {
         Order storage order = orders[orderId];
         Offer storage offer = offers[order.offerId];
         if (order.status != OrderState.paid) {
@@ -373,9 +382,7 @@ contract OptimisticP2P is P2Pparams, Ownable, ReentrancyGuard, Helpers {
         decrementMerchantOrders(offer.merchant);
         emit OrderReleased(orderId, OrderState.released);
     }
-    function cancelOrder(
-        uint256 orderId
-    ) external nonReentrant isValidOrder(orderId) {
+    function cancelOrder(uint256 orderId) external isValidOrder(orderId) {
         Order storage order = orders[orderId];
         Offer storage offer = offers[order.offerId];
         if (order.orderType == TradeType.sell) {
@@ -438,7 +445,7 @@ contract OptimisticP2P is P2Pparams, Ownable, ReentrancyGuard, Helpers {
     function appealOrder(
         uint256 orderId,
         bytes32 reasonHash
-    ) external nonReentrant isValidOrder(orderId) nonEmptyReason(reasonHash) {
+    ) external isValidOrder(orderId) nonEmptyReason(reasonHash) {
         Order storage order = orders[orderId];
         Offer storage offer = offers[order.offerId];
         if (order.status != OrderState.paid) {
@@ -504,7 +511,7 @@ contract OptimisticP2P is P2Pparams, Ownable, ReentrancyGuard, Helpers {
 
     function pickCase(
         uint256 appealId
-    ) external nonReentrant onlySettlers isValidAppeal(appealId) {
+    ) external onlySettlers isValidAppeal(appealId) {
         validateSettler(msg.sender);
         Appeal storage appeal = appeals[appealId];
         if (appeal.currentSettler != address(0)) {
@@ -527,13 +534,7 @@ contract OptimisticP2P is P2Pparams, Ownable, ReentrancyGuard, Helpers {
     function traderVote(
         uint256 appealId,
         AppealDecision vote
-    )
-        external
-        nonReentrant
-        onlyTraders
-        isValidVote(vote)
-        isValidAppeal(appealId)
-    {
+    ) external onlyTraders isValidVote(vote) isValidAppeal(appealId) {
         Appeal storage appeal = appeals[appealId];
         uint256 roundId = _roundId(appeal.votes.length);
         AppealVote storage round = appeal.votes[roundId];
@@ -567,13 +568,7 @@ contract OptimisticP2P is P2Pparams, Ownable, ReentrancyGuard, Helpers {
     function merchantVote(
         uint256 appealId,
         AppealDecision vote
-    )
-        external
-        nonReentrant
-        onlyMerchants
-        isValidVote(vote)
-        isValidAppeal(appealId)
-    {
+    ) external onlyMerchants isValidVote(vote) isValidAppeal(appealId) {
         Appeal storage appeal = appeals[appealId];
         uint256 roundId = _roundId(appeal.votes.length);
         AppealVote storage round = appeal.votes[roundId];
@@ -607,13 +602,7 @@ contract OptimisticP2P is P2Pparams, Ownable, ReentrancyGuard, Helpers {
     function settlerVote(
         uint256 appealId,
         AppealDecision vote
-    )
-        external
-        nonReentrant
-        onlySettlers
-        isValidVote(vote)
-        isValidAppeal(appealId)
-    {
+    ) external onlySettlers isValidVote(vote) isValidAppeal(appealId) {
         Appeal storage appeal = appeals[appealId];
         if (appeal.currentSettler != msg.sender) {
             revert SettlingInProgress(appeal.currentSettler);
@@ -640,7 +629,7 @@ contract OptimisticP2P is P2Pparams, Ownable, ReentrancyGuard, Helpers {
     function daoVote(
         uint256 appealId,
         AppealDecision vote
-    ) external nonReentrant onlyDAO isValidVote(vote) isValidAppeal(appealId) {
+    ) external onlyDAO isValidVote(vote) isValidAppeal(appealId) {
         Appeal storage appeal = appeals[appealId];
         if (!_appealOver(appeal)) {
             revert AppealInProgress(appealId);

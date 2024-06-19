@@ -37,7 +37,7 @@ abstract contract P2Pparams {
     struct Offer {
         address token;
         string currency;
-        bytes32 paymentMethod;
+        string paymentMethod;
         uint256 rate;
         uint256 minOrder;
         uint256 maxOrder;
@@ -112,7 +112,7 @@ abstract contract P2Pparams {
     event NewOffer(
         address indexed token,
         string indexed currency,
-        bytes32 indexed paymentMethod,
+        string indexed paymentMethod,
         uint256 offerId,
         uint256 rate,
         uint256 minOrder,
@@ -193,6 +193,7 @@ abstract contract P2Pparams {
         address indexed _settler,
         uint256 indexed _caseId
     );
+    event ProtocolParamsUpdated();
 
     error UnauthorizedUser(string messsage);
     error NonTradeToken();

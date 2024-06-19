@@ -9,7 +9,7 @@ import "./OffchainAgent.sol";
 
 contract AMLBlacklist is IAMLBlacklist, OffchainAgent {
     struct Blacklist {
-        address _address;
+        bool _black;
         uint256 _addedAt;
     }
 
@@ -18,7 +18,7 @@ contract AMLBlacklist is IAMLBlacklist, OffchainAgent {
     constructor() Ownable(msg.sender) {}
 
     function addBlacklist(address _address) external onlyAgent {
-        blacklist[_address] = Blacklist(_address, block.timestamp);
+        blacklist[_address] = Blacklist(true, block.timestamp);
         emit BlacklistAdded(_address, msg.sender);
     }
 
@@ -28,6 +28,6 @@ contract AMLBlacklist is IAMLBlacklist, OffchainAgent {
     }
 
     function isBlacklisted(address _address) external view returns (bool) {
-        return blacklist[_address]._address != address(0);
+        return blacklist[_address]._black;
     }
 }

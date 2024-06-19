@@ -48,4 +48,9 @@ Url - https://sepolia.basescan.org/address/0x18604e817ad31fF53031B955f834Df4B26e
 #### Deploy Optimistic P2P contract
 Deploy - `npx hardhat run scripts/deploy_p2p.ts --network baseTestnet`
 Verify - `npx hardhat verify --constructor-args contract-args/p2p.ts --network baseTestnet [OP2P]`
-Url - https://sepolia.basescan.org/address/0xC080c3Bad87f90F00ce49C5953dFDd1189918adA
+Url - https://sepolia.basescan.org/address/0xeCbc2bEfa8d0F192CF5605B5e940EeAa0c91d6Ad
+
+### After Deployment
+
+`npx hardhat run scripts/add_tokens.ts --network baseTestnet`
+`npx hardhat run scripts/add_currency_payments.ts --network baseTestnet`
