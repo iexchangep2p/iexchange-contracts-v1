@@ -17,6 +17,10 @@ P2P contract uses an optimistic P2P algorithm, find spec here [Specification](./
 
 3. Deploy Optimistic P2P contract `OP2P`
 
+4. Deploy Pair Factor
+
+5. Deploy Router
+
 ## Deployments
 
 ### Base Sepolia
@@ -50,7 +54,16 @@ Deploy - `npx hardhat run scripts/deploy_p2p.ts --network baseTestnet`
 Verify - `npx hardhat verify --constructor-args contract-args/p2p.ts --network baseTestnet [OP2P]`
 Url - https://sepolia.basescan.org/address/0xeCbc2bEfa8d0F192CF5605B5e940EeAa0c91d6Ad
 
-### After Deployment
-
+##### After Deployment
 `npx hardhat run scripts/add_tokens.ts --network baseTestnet`
 `npx hardhat run scripts/add_currency_payments.ts --network baseTestnet`
+
+#### Deploy Factory Contract
+Deploy - `npx hardhat run scripts/deploy_factory.ts --network baseTestnet`
+Verify - `npx hardhat verify [PAIR_FACTORY] [DA0_ADDRESS] --network baseTestnet`
+Url - https://sepolia.basescan.org/address/0xaA629706369aB3399D2D538D9d301C32a821927F
+
+#### Deploy Router Contract
+Deploy - `npx hardhat run scripts/deploy_router.ts --network baseTestnet`
+Verify - `npx hardhat verify [ROUTER] [PAIR_FACTORY] [CEDIH] --network baseTestnet`
+Url - https://sepolia.basescan.org/address/0xA9c2851eF18F33Fe0bd10e40087448D62CCC2A58
