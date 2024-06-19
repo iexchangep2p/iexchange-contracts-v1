@@ -20,6 +20,7 @@ P2P contract uses an optimistic P2P algorithm, find spec here [Specification](./
 ## Deployments
 
 ### Base Sepolia
+
 #### Deploy erc20 tokens
 ##### Cedih
 Deploy - `npx hardhat run scripts/deploy_cd.ts --network baseTestnet`
@@ -39,14 +40,12 @@ Url - https://sepolia.basescan.org/address/0x935E49458145B917a0EaEE279652F724EA7
 Deploy - `npx hardhat run scripts/deploy_kyc.ts --network baseTestnet`
 Verify - `npx hardhat verify [KYC] --network baseTestnet`
 Url - https://sepolia.basescan.org/address/0xa7c3a5bd99E11E0d8cD21952a0133449b194d3A8
-
 ##### AML
 Deploy - `npx hardhat run scripts/deploy_aml.ts --network baseTestnet`
 Verify - `npx hardhat verify [AML] --network baseTestnet`
 Url - https://sepolia.basescan.org/address/0x18604e817ad31fF53031B955f834Df4B26e5AB73
 
 #### Deploy Optimistic P2P contract
-
 Deploy - `npx hardhat run scripts/deploy_p2p.ts --network baseTestnet`
 Verify - `npx hardhat verify --constructor-args contract-args/p2p.ts --network baseTestnet [OP2P]`
-Url - https://sepolia.basescan.org/address/0xB2002EaFC86DD21eaDAed4b1a7857357a6C3f41f
+Url - https://sepolia.basescan.org/address/0x8BA0d448FAD5469D0BE9E7aF3c2b7be0d689db47
