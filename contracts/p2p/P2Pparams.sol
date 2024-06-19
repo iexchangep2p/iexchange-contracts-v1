@@ -136,10 +136,10 @@ abstract contract P2Pparams {
         uint256 appealId,
         OrderState status
     );
-    event OrderAccepted(uint256 indexed orderId, OrderState status);
-    event OrderPaid(uint256 indexed orderId, OrderState status);
-    event OrderReleased(uint256 indexed orderId, OrderState status);
-    event OrderCancelled(uint256 indexed orderId, OrderState status);
+    event OrderAccepted(uint256 indexed orderId, OrderState indexed status);
+    event OrderPaid(uint256 indexed orderId, OrderState indexed status);
+    event OrderReleased(uint256 indexed orderId, OrderState indexed status);
+    event OrderCancelled(uint256 indexed orderId, OrderState indexed status);
     event OrderAppealed(
         uint256 indexed orderId,
         uint256 indexed appealId,
@@ -170,20 +170,29 @@ abstract contract P2Pparams {
         AppealDecision traderVote,
         uint256 roundId
     );
-    event DAOVoted(uint256 indexed appealId, AppealDecision daoVote);
-    event PenaltySlashed(uint256 indexed appealId, address[] affected);
-    event RewardDistributed(uint256 indexed appealId, address[] beneficiaries);
+    event DAOVoted(uint256 indexed appealId, AppealDecision indexed daoVote);
+    event PenaltySlashed(uint256 indexed appealId, address[] indexed affected);
+    event RewardDistributed(
+        uint256 indexed appealId,
+        address[] indexed beneficiaries
+    );
     event SettlerStaked(address indexed settler, uint256 indexed amount);
     event MerchantStaked(address indexed merchant, uint256 indexed amount);
     event SettlerUnstaked(address indexed settler, uint256 indexed amount);
     event MerchantUnstaked(address indexed merchant, uint256 indexed amount);
-    event TokenAdded(address indexed _token, address _addedBy);
-    event TokenRemoved(address indexed _token, address _addedBy);
-    event PaymentMethodAdded(address _addedBy, string _method);
-    event PaymentMethodRemoved(address _removedBy, string _method);
-    event CurrencyAdded(address _addedBy, string _currency);
-    event CurrencyRemoved(address _removedBy, string _currency);
-    event SettlerAssignedToCase(address _settler, uint256 _caseId);
+    event TokenAdded(address indexed _addedBy, address indexed _token);
+    event TokenRemoved(address indexed _addedBy, address indexed _token);
+    event PaymentMethodAdded(address indexed _addedBy, string indexed _method);
+    event PaymentMethodRemoved(
+        address indexed _removedBy,
+        string indexed _method
+    );
+    event CurrencyAdded(address indexed _addedBy, string indexed _currency);
+    event CurrencyRemoved(address indexed _removedBy, string indexed _currency);
+    event SettlerAssignedToCase(
+        address indexed _settler,
+        uint256 indexed _caseId
+    );
 
     error UnauthorizedUser(string messsage);
     error NonTradeToken();
