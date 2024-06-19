@@ -29,7 +29,7 @@ async function main() {
   // sell
   const tokenS = process.env.CEDIH!;
   const currencyS = cedi;
-  const paymentMethodS = momo;
+  const paymentMethodS = fidelity;
   const rateS = 15;
   const offerTypeS = 1;
 
@@ -45,17 +45,17 @@ async function main() {
     offerTypeS
   );
 
-  // await shadow.createOffer(
-  //   token,
-  //   currency,
-  //   paymentMethod,
-  //   rate,
-  //   minOrder,
-  //   maxOrder,
-  //   accountHash,
-  //   depositAddress,
-  //   offerType
-  // );
+  await shadow.createOffer(
+    token,
+    currency,
+    paymentMethod,
+    rate,
+    minOrder,
+    maxOrder,
+    accountHash,
+    depositAddress,
+    offerType
+  );
 
   console.log("Created two fing offers ...");
 }

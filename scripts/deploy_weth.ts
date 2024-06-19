@@ -1,11 +1,7 @@
 import { ethers } from "hardhat";
-import "dotenv/config";
 
 async function main() {
-  const shadow = await ethers.deployContract("UniswapV2Router02", [
-    process.env.PAIR_FACTORY!,
-    process.env.WETH!,
-  ]);
+  const shadow = await ethers.deployContract("WETH9");
 
   await shadow.waitForDeployment();
 

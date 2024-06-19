@@ -19,7 +19,9 @@ P2P contract uses an optimistic P2P algorithm, find spec here [Specification](./
 
 4. Deploy Pair Factor
 
-5. Deploy Router
+5. Deploy WETH
+
+6. Deploy Router
 
 ## Deployments
 
@@ -63,7 +65,12 @@ Deploy - `npx hardhat run scripts/deploy_factory.ts --network baseTestnet`
 Verify - `npx hardhat verify [PAIR_FACTORY] [DA0_ADDRESS] --network baseTestnet`
 Url - https://sepolia.basescan.org/address/0xaA629706369aB3399D2D538D9d301C32a821927F
 
+#### Deploy WETH
+Deploy - `npx hardhat run scripts/deploy_weth.ts --network baseTestnet`
+Verify - `npx hardhat verify [WETH] --network baseTestnet`
+Url - https://sepolia.basescan.org/address/0xcB05E9aCA0d9b9d51d61E729b76e962e84F52f2A
+
 #### Deploy Router Contract
 Deploy - `npx hardhat run scripts/deploy_router.ts --network baseTestnet`
-Verify - `npx hardhat verify [ROUTER] [PAIR_FACTORY] [CEDIH] --network baseTestnet`
-Url - https://sepolia.basescan.org/address/0xA9c2851eF18F33Fe0bd10e40087448D62CCC2A58
+Verify - `npx hardhat verify [ROUTER] [PAIR_FACTORY] [WETH] --network baseTestnet`
+Url - https://sepolia.basescan.org/address/0xDE25ffe99176C3aFeB56c47f3391e1F126976d08
