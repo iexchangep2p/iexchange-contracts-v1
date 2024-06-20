@@ -46,7 +46,7 @@ Url - https://sepolia.basescan.org/address/0x935E49458145B917a0EaEE279652F724EA7
 ##### IEXATT
 Deploy - `npx hardhat run scripts/deploy_attest.ts --network baseTestnet`
 Verify - `npx hardhat verify --constructor-args contract-args/attest.ts --network baseTestnet [IEXATT]`
-Url - https://sepolia.basescan.org/address/0xB431d429e9f5792d266D688E602Dc3A61dc1FaEE
+Url - https://sepolia.basescan.org/address/0x8C49Fd0b3E42DbAE0b13Fde81E3023c626E6f198
 ##### KYC
 Deploy - `npx hardhat run scripts/deploy_kyc.ts --network baseTestnet`
 Verify - `npx hardhat verify [KYC] --network baseTestnet`

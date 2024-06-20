@@ -15,7 +15,7 @@ struct Attestation {
 
 contract iExAttestation is ProofVerifier, Ownable {
     mapping(bytes32 uid => Attestation) private attestations;
-    mapping(address recipient => Attestation) private iexAttestation;
+    mapping(address recipient => bytes32 uid) private iexAttestation;
     mapping(bytes32 schemaId => bool) private iexSchemas;
     constructor(
         bytes32[] memory _acceptedSchemas
@@ -62,7 +62,7 @@ contract iExAttestation is ProofVerifier, Ownable {
 
         attestations[uid] = attestation;
         if (iexSchemas[_proof.schemaId]) {
-            iexAttestation[_proof.recipient] = attestation;
+            iexAttestation[_proof.recipient] = uid;
         }
     }
 
@@ -75,7 +75,7 @@ contract iExAttestation is ProofVerifier, Ownable {
     function getiExAttestation(
         address recipient
     ) public view returns (Attestation memory) {
-        return iexAttestation[recipient];
+        return getAttestation(iexAttestation[recipient]);
     }
 
     function getUID(

@@ -2,6 +2,7 @@ import { ethers } from "hardhat";
 import "dotenv/config";
 import { Web3 } from 'web3';
 
+
 async function main() {
     const schemas = [
       Web3.utils.asciiToHex('bb0841c23af949fb81641c49ffa1e189'),
