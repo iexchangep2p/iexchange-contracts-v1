@@ -22,12 +22,12 @@ async function main() {
     process.env.TRK!
   );
 
-  const maxAllowance = BigInt(1e6 * 1e18);
+  const maxAllowance = BigInt(1e6) * BigInt(1e18);
 
   const tokenA = process.env.CEDIH!;
   const tokenB = process.env.RAMP!;
-  const amountADesired = BigInt(1e4 * 1e18);
-  const amountBDesired = BigInt(1e5 * 1e18);
+  const amountADesired = BigInt(1e5 )* BigInt(1e18);
+  const amountBDesired = BigInt(1e5) * BigInt(1e18);
   const amountAMin = BigInt(BigInt(amountADesired * BigInt(90)) / BigInt(100));
   const amountBMin = BigInt(BigInt(amountADesired * BigInt(90)) / BigInt(100));
   const to = process.env.DA0_ADDRESS!;
@@ -43,8 +43,8 @@ async function main() {
     tokenB,
     amountADesired,
     amountBDesired,
-    amountAMin,
-    amountBMin,
+    0,
+    0,
     to,
     deadline
   );

@@ -80,4 +80,4 @@ Url - https://sepolia.basescan.org/address/0xcB05E9aCA0d9b9d51d61E729b76e962e84F
 #### Deploy Router Contract
 Deploy - `npx hardhat run scripts/deploy_router.ts --network baseTestnet`
 Verify - `npx hardhat verify [ROUTER] [PAIR_FACTORY] [WETH] --network baseTestnet`
-Url - https://sepolia.basescan.org/address/0xDE25ffe99176C3aFeB56c47f3391e1F126976d08
+Url - https://sepolia.basescan.org/address/0x2Ce330aEBf8a7b1c46CF70c21c7f2BaD9114b39A
