@@ -1,15 +1,14 @@
 import { ethers } from "hardhat";
 import "dotenv/config";
-import { Web3 } from 'web3';
-
+import { Web3 } from "web3";
 
 async function main() {
-    const schemas = [
-      Web3.utils.asciiToHex('bb0841c23af949fb81641c49ffa1e189'),
-      Web3.utils.asciiToHex('b3bd0822034641b2aee2deb631550c75')
-    ]
-    console.log(schemas);
-    
+  const schemas = [
+    Web3.utils.asciiToHex("bb0841c23af949fb81641c49ffa1e189"),
+    Web3.utils.asciiToHex("b3bd0822034641b2aee2deb631550c75"),
+  ];
+  console.log(schemas);
+
   const shadow = await ethers.deployContract("iExAttestation", [schemas]);
 
   await shadow.waitForDeployment();

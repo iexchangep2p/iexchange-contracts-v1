@@ -1,7 +1,9 @@
 import { ethers } from "hardhat";
 
 async function main() {
-  const shadow = await ethers.deployContract("KYCWhitelist");
+  const shadow = await ethers.deployContract("KYCWhitelist", [
+    process.env.IEXATT!,
+  ]);
 
   await shadow.waitForDeployment();
 

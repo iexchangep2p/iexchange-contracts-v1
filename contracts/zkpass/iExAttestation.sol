@@ -4,16 +4,9 @@ pragma solidity ^0.8.20;
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {Proof} from "./Common.sol";
 import {ProofVerifier} from "./ProofVerifier.sol";
+import "../interfaces/IExAttest.sol";
 
-struct Attestation {
-    bytes32 uid;
-    bytes32 schema;
-    bytes32 uHash;
-    address recipient;
-    bytes32 publicFieldsHash;
-}
-
-contract iExAttestation is ProofVerifier, Ownable {
+contract iExAttestation is ProofVerifier, IExAttest, Ownable {
     mapping(bytes32 uid => Attestation) private attestations;
     mapping(address recipient => bytes32 uid) private iexAttestation;
     mapping(bytes32 schemaId => bool) private iexSchemas;

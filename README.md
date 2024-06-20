@@ -1,6 +1,8 @@
 # iExchange = DEX + P2P (Onchian)
 
-P2P contract uses an optimistic P2P algorithm, find spec here [Specification](./specification.md).
+P2P contract uses an optimistic P2P algorithm, find spec here [P2P Spec](./p2p.spec.md).
+
+AML & KYC contract with offchian zkKyc agent, find spec here [KYC Spec](./kyc.spec.md).
 
 ## Initial Deployment & Setup Steps
 
@@ -49,8 +51,8 @@ Verify - `npx hardhat verify --constructor-args contract-args/attest.ts --networ
 Url - https://sepolia.basescan.org/address/0x8C49Fd0b3E42DbAE0b13Fde81E3023c626E6f198
 ##### KYC
 Deploy - `npx hardhat run scripts/deploy_kyc.ts --network baseTestnet`
-Verify - `npx hardhat verify [KYC] --network baseTestnet`
-Url - https://sepolia.basescan.org/address/0xa7c3a5bd99E11E0d8cD21952a0133449b194d3A8
+Verify - `npx hardhat verify [KYC] [IEXATT] --network baseTestnet`
+Url - https://sepolia.basescan.org/address/0xEa9Fee2c40Fc49139482a77626dAd0Dcf2b6c0C9
 ##### AML
 Deploy - `npx hardhat run scripts/deploy_aml.ts --network baseTestnet`
 Verify - `npx hardhat verify [AML] --network baseTestnet`

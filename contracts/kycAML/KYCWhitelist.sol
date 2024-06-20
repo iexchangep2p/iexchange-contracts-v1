@@ -9,11 +9,15 @@ import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import "../interfaces/IKYCWhitelist.sol";
+import "../interfaces/IExAttest.sol";
 import "./OffchainAgent.sol";
 
 contract KYCWhitelist is IKYCWhitelist, OffchainAgent {
+    IExAttest public zkKyc;
     mapping(address => KYCLevel) public addressKYCLevel;
-    constructor() Ownable(msg.sender) {}
+    constructor(IExAttest _zkKyc) Ownable(msg.sender) {
+        zkKyc = _zkKyc;
+    }
 
     function upgradeKYCLevel(
         address _address,
@@ -37,7 +41,13 @@ contract KYCWhitelist is IKYCWhitelist, OffchainAgent {
         emit KYCLevelDowngraded(_address, msg.sender, _level);
     }
 
-    function getKYCLevel(address _address) external view returns (KYCLevel) {
-        return addressKYCLevel[_address];
+    function getKYCLevel(address _address) external view returns (KYCLevel level) {
+        level =  addressKYCLevel[_address];
+        if (level < KYCLevel.level2) {
+            IExAttest.Attestation memory attestation = zkKyc.getiExAttestation(_address);
+            if (attestation.uid != 0) {
+                level = KYCLevel.level2;
+            }
+        }
     }
 }

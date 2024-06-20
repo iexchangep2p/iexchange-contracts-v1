@@ -106,13 +106,13 @@ abstract contract P2Pparams {
     Order[] public orders;
     Appeal[] public appeals;
 
-    event NewMerchant(address indexed merchant);
-    event NewSettler(address indexed settler);
-    event NewTrader(address indexed trader);
+    event NewMerchant(address  merchant);
+    event NewSettler(address  settler);
+    event NewTrader(address  trader);
     event NewOffer(
-        address indexed token,
-        string indexed currency,
-        string indexed paymentMethod,
+        address  token,
+        string  currency,
+        string  paymentMethod,
         uint256 offerId,
         uint256 rate,
         uint256 minOrder,
@@ -123,12 +123,12 @@ abstract contract P2Pparams {
         address depositAddress,
         TradeType offerType
     );
-    event OfferDisabled(uint256 indexed offerId, bool indexed active);
-    event OfferEnabled(uint256 indexed offerId, bool indexed active);
+    event OfferDisabled(uint256  offerId, bool  active);
+    event OfferEnabled(uint256  offerId, bool  active);
     event NewOrder(
-        uint256 indexed orderId,
-        address indexed trader,
-        TradeType indexed orderType,
+        uint256  orderId,
+        address  trader,
+        TradeType  orderType,
         uint256 offerId,
         uint256 quantity,
         address depositAddress,
@@ -136,62 +136,62 @@ abstract contract P2Pparams {
         uint256 appealId,
         OrderState status
     );
-    event OrderAccepted(uint256 indexed orderId, OrderState indexed status);
-    event OrderPaid(uint256 indexed orderId, OrderState indexed status);
-    event OrderReleased(uint256 indexed orderId, OrderState indexed status);
-    event OrderCancelled(uint256 indexed orderId, OrderState indexed status);
+    event OrderAccepted(uint256  orderId, OrderState  status);
+    event OrderPaid(uint256  orderId, OrderState  status);
+    event OrderReleased(uint256  orderId, OrderState  status);
+    event OrderCancelled(uint256  orderId, OrderState  status);
     event OrderAppealed(
-        uint256 indexed orderId,
-        uint256 indexed appealId,
-        address indexed appealer,
+        uint256  orderId,
+        uint256  appealId,
+        address  appealer,
         bytes32 reasonHash,
         AppealDecision daoVote,
         AppealDecision appealDecision,
         OrderState status
     );
     event SettlerVoted(
-        uint256 indexed appealId,
-        address indexed settler,
-        bool indexed settled,
+        uint256  appealId,
+        address  settler,
+        bool  settled,
         AppealDecision settlerVote,
         uint256 roundId
     );
     event MerchantVoted(
-        uint256 indexed appealId,
-        address indexed merchant,
-        bool indexed settled,
+        uint256  appealId,
+        address  merchant,
+        bool  settled,
         AppealDecision merchantVote,
         uint256 roundId
     );
     event TraderVoted(
-        uint256 indexed appealId,
-        address indexed trader,
-        bool indexed settled,
+        uint256  appealId,
+        address  trader,
+        bool  settled,
         AppealDecision traderVote,
         uint256 roundId
     );
-    event DAOVoted(uint256 indexed appealId, AppealDecision indexed daoVote);
-    event PenaltySlashed(uint256 indexed appealId, address[] indexed affected);
+    event DAOVoted(uint256  appealId, AppealDecision  daoVote);
+    event PenaltySlashed(uint256  appealId, address[]  affected);
     event RewardDistributed(
-        uint256 indexed appealId,
-        address[] indexed beneficiaries
+        uint256  appealId,
+        address[]  beneficiaries
     );
-    event SettlerStaked(address indexed settler, uint256 indexed amount);
-    event MerchantStaked(address indexed merchant, uint256 indexed amount);
-    event SettlerUnstaked(address indexed settler, uint256 indexed amount);
-    event MerchantUnstaked(address indexed merchant, uint256 indexed amount);
-    event TokenAdded(address indexed _addedBy, address indexed _token);
-    event TokenRemoved(address indexed _addedBy, address indexed _token);
-    event PaymentMethodAdded(address indexed _addedBy, string indexed _method);
+    event SettlerStaked(address  settler, uint256  amount);
+    event MerchantStaked(address  merchant, uint256  amount);
+    event SettlerUnstaked(address  settler, uint256  amount);
+    event MerchantUnstaked(address  merchant, uint256  amount);
+    event TokenAdded(address  _addedBy, address  _token);
+    event TokenRemoved(address  _addedBy, address  _token);
+    event PaymentMethodAdded(address  _addedBy, string  _method);
     event PaymentMethodRemoved(
-        address indexed _removedBy,
-        string indexed _method
+        address  _removedBy,
+        string  _method
     );
-    event CurrencyAdded(address indexed _addedBy, string indexed _currency);
-    event CurrencyRemoved(address indexed _removedBy, string indexed _currency);
+    event CurrencyAdded(address  _addedBy, string  _currency);
+    event CurrencyRemoved(address  _removedBy, string  _currency);
     event SettlerAssignedToCase(
-        address indexed _settler,
-        uint256 indexed _caseId
+        address  _settler,
+        uint256  _caseId
     );
     event ProtocolParamsUpdated();
 

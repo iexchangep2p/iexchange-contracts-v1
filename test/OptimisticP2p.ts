@@ -5,6 +5,7 @@ import {
 import { anyValue } from "@nomicfoundation/hardhat-chai-matchers/withArgs";
 import { expect } from "chai";
 import { ethers } from "hardhat";
+import { deployZk } from "./zk";
 
 export async function deployP2P() {
   const [owner, merchant, trader1, trader2, amlAgent, kycAgent, settler] =
@@ -45,9 +46,11 @@ export async function deployP2P() {
 
   await aml.addAgent(await amlAgent.getAddress());
 
+  const { iex, proof } = await loadFixture(deployZk);
+
   const KYC = await ethers.getContractFactory("KYCWhitelist");
 
-  const kyc = await KYC.deploy();
+  const kyc = await KYC.deploy(await iex.getAddress());
 
   await kyc.addAgent(await kycAgent.getAddress());
 
@@ -233,10 +236,7 @@ describe("Optimistic P2P", function () {
           )
       ).emit(p2p, "NewOrder");
 
-      await expect(p2p.connect(merchant).payOrder(0)).emit(
-        p2p,
-        "OrderPaid"
-      );
+      await expect(p2p.connect(merchant).payOrder(0)).emit(p2p, "OrderPaid");
       await expect(p2p.connect(trader1).releaseOrder(0)).emit(
         p2p,
         "OrderReleased"
@@ -246,19 +246,27 @@ describe("Optimistic P2P", function () {
       const buyQuantity = BigInt(1e5 * 1e18);
       const buyDepositAddress = await trader2.getAddress();
 
-      await expect(p2p
-        .connect(trader2)
-        .createOrder(buyOfferId, buyQuantity, buyDepositAddress, accountHash)).emit(p2p, "NewOrder");
+      await expect(
+        p2p
+          .connect(trader2)
+          .createOrder(buyOfferId, buyQuantity, buyDepositAddress, accountHash)
+      ).emit(p2p, "NewOrder");
 
       await cedih
         .connect(merchant)
         .approve(await p2p.getAddress(), buyQuantity);
 
-      await expect(p2p.connect(merchant).acceptOrder(1)).emit(p2p, "OrderAccepted");
+      await expect(p2p.connect(merchant).acceptOrder(1)).emit(
+        p2p,
+        "OrderAccepted"
+      );
 
       await expect(p2p.connect(trader2).payOrder(1)).emit(p2p, "OrderPaid");
 
-      await expect(p2p.connect(merchant).releaseOrder(1)).emit(p2p, "OrderReleased");
+      await expect(p2p.connect(merchant).releaseOrder(1)).emit(
+        p2p,
+        "OrderReleased"
+      );
     });
   });
 });
