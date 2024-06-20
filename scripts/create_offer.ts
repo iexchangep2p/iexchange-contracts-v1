@@ -5,32 +5,31 @@ async function main() {
 
   const cedi = "GHS";
   const naira = "NGN";
+  const shill = "KES";
 
   const momo = "Mobile Money";
   const fidelity = "Fidelity Bank";
-  const mtn = "MTN Mobile Money";
-  const telecel = "Telecel Mobile Money";
-  const airtelTigo = "Airtel Tigo Mobile Money";
+  const mp = "M-Pesa";
 
   //   await shadow.createOffer();
   // buy
-  const token = process.env.CEDIH!;
-  const currency = cedi;
-  const paymentMethod = momo;
-  const rate = 14;
+  const token = process.env.TRK!;
+  const currency = shill;
+  const paymentMethod = mp;
+  const rate = 10;
   const minOrder = BigInt(1e4 * 1e18);
   const maxOrder = BigInt(1e6 * 1e18);
-  const accountHash = ethers.sha256(
+  const accountHash = ethers.keccak256(
     ethers.encodeBytes32String("Seth Baah Kusi0553339728")
   );
   const depositAddress = process.env.DA0_ADDRESS!;
   const offerType = 0;
 
   // sell
-  const tokenS = process.env.CEDIH!;
-  const currencyS = cedi;
-  const paymentMethodS = fidelity;
-  const rateS = 15;
+  const tokenS = process.env.TRK!;
+  const currencyS = shill;
+  const paymentMethodS = mp;
+  const rateS = 11;
   const offerTypeS = 1;
 
   await shadow.createOffer(
