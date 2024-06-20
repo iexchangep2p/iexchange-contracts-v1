@@ -12,6 +12,7 @@ P2P contract uses an optimistic P2P algorithm, find spec here [Specification](./
 
 2. Deploy KYC & AML Contracts
 
+- Deploy zkpass attestations `IEXATT`
 - Kyc `KYC`
 - Aml `AML`
 
@@ -42,6 +43,10 @@ Verify - `npx hardhat verify [TRK] --network baseTestnet --contract contracts/to
 Url - https://sepolia.basescan.org/address/0x935E49458145B917a0EaEE279652F724EA78d8F0
 
 #### Deploy KYC & AML Contracts
+##### IEXATT
+Deploy - `npx hardhat run scripts/deploy_attest.ts --network baseTestnet`
+Verify - `npx hardhat verify --constructor-args contract-args/attest.ts --network baseTestnet [IEXATT]`
+Url - https://sepolia.basescan.org/address/0xB431d429e9f5792d266D688E602Dc3A61dc1FaEE
 ##### KYC
 Deploy - `npx hardhat run scripts/deploy_kyc.ts --network baseTestnet`
 Verify - `npx hardhat verify [KYC] --network baseTestnet`

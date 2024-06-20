@@ -20,6 +20,17 @@ const config: HardhatUserConfig = {
         },
       },
       {
+        version: "0.8.20",
+        settings: {
+          viaIR: true,
+          optimizer: {
+            enabled: true,
+            runs: 1_000_000,
+          },
+          evmVersion: "london",
+        },
+      },
+      {
         version: "0.5.16",
         settings: {
           optimizer: {
