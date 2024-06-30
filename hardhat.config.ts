@@ -43,7 +43,7 @@ const config: HardhatUserConfig = {
         network: "kkrtTestnet",
         chainId: 1802203764,
         urls: {
-          apiURL: "https://blockscout-api-kkrt.karnot.xyz/api/v2",
+          apiURL: "https://api.routescan.io/v2/network/testnet/evm/1802203764_2/etherscan",
           browserURL: "https://sepolia-blockscout.kakarot.org/",
         },
       },
