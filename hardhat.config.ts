@@ -19,35 +19,6 @@ const config: HardhatUserConfig = {
           evmVersion: "london",
         },
       },
-      {
-        version: "0.8.20",
-        settings: {
-          viaIR: true,
-          optimizer: {
-            enabled: true,
-            runs: 1_000_000,
-          },
-          evmVersion: "london",
-        },
-      },
-      {
-        version: "0.5.16",
-        settings: {
-          optimizer: {
-            enabled: true,
-            runs: 1_000_000,
-          },
-        },
-      },
-      {
-        version: "0.6.6",
-        settings: {
-          optimizer: {
-            enabled: true,
-            runs: 1_000_000,
-          },
-        },
-      },
     ],
   },
   networks: {
@@ -56,11 +27,27 @@ const config: HardhatUserConfig = {
       chainId: 84532,
       accounts: [process.env.PRIVATE_KEY!],
     },
+    kkrtTestnet: {
+      url: "https://sepolia-rpc.kakarot.org/",
+      chainId: 1802203764,
+      accounts: [process.env.PRIVATE_KEY!],
+    },
   },
   etherscan: {
     apiKey: {
       baseSepolia: process.env.ETHERSCAN_KEY!,
+      kkrtTestnet: "anything",
     },
+    customChains: [
+      {
+        network: "kkrtTestnet",
+        chainId: 1802203764,
+        urls: {
+          apiURL: "https://blockscout-api-kkrt.karnot.xyz/api/v2",
+          browserURL: "https://sepolia-blockscout.kakarot.org/",
+        },
+      },
+    ],
   },
 };
 

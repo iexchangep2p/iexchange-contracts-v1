@@ -28,6 +28,48 @@ AML & KYC contract with offchian zkKyc agent, find spec here [KYC Spec](./kyc.sp
 
 ## Deployments
 
+### Kakarot Sepolia
+
+##### Cedih
+Deploy - `npx hardhat run scripts/deploy_cd.ts --network kkrtTestnet`
+Verify - `npx hardhat verify [CEDIH] --network kkrtTestnet --contract contracts/tokens/Cedih.sol:Cedih`
+Url - https://sepolia-blockscout.kakarot.org/address/0x3d63fEc287aD7963B614eD873690A745E635D5Fa
+##### Ramp
+Deploy - `npx hardhat run scripts/deploy_rmp.ts --network kkrtTestnet`
+Verify - `npx hardhat verify [RAMP] --network kkrtTestnet --contract contracts/tokens/Ramp.sol:Ramp`
+Url - https://sepolia-blockscout.kakarot.org/address/0x39a7f0a342a0509C1aC248F379ba283e99c36Ae5
+##### TRK
+Deploy - `npx hardhat run scripts/deploy_trk.ts --network kkrtTestnet`
+Verify - `npx hardhat verify [TRK] --network kkrtTestnet --contract contracts/tokens/Troken.sol:Troken`
+Url - https://sepolia-blockscout.kakarot.org/address/0x670a1c39227C2475de0459fAB245111F0f78A4Bf
+
+#### Deploy KYC & AML Contracts
+##### IEXATT
+Deploy - `npx hardhat run scripts/deploy_attest.ts --network kkrtTestnet`
+Verify - `npx hardhat verify --constructor-args contract-args/attest.ts --network kkrtTestnet [IEXATT]`
+Url - https://sepolia-blockscout.kakarot.org/address/0xB3b75E9d2BAE1Aa3AF2caeC46ec7377c27f09D28
+##### KYC
+Deploy - `npx hardhat run scripts/deploy_kyc.ts --network kkrtTestnet`
+Verify - `npx hardhat verify [KYC] [IEXATT] --network kkrtTestnet`
+Url - https://sepolia-blockscout.kakarot.org/address/0x9A7477C4fcD9ef5715cD1a96c567117F9fda3a7d
+##### AML
+Deploy - `npx hardhat run scripts/deploy_aml.ts --network kkrtTestnet`
+Verify - `npx hardhat verify [AML] --network kkrtTestnet`
+Url - https://sepolia-blockscout.kakarot.org/address/0xFB7E20739Fa2b8b4351c9F87a1C68b728E7aa614
+##### After Deployment
+`npx hardhat run scripts/add_agents.ts --network kkrtTestnet`
+`npx hardhat run scripts/whitelist.ts --network kkrtTestnet`
+`npx hardhat run scripts/blacklist.ts --network kkrtTestnet`
+#### Deploy Optimistic P2P contract
+Deploy - `npx hardhat run scripts/deploy_p2p.ts --network kkrtTestnet`
+Verify - `npx hardhat verify --constructor-args contract-args/p2p.ts --network kkrtTestnet [OP2P]`
+Url - https://sepolia-blockscout.kakarot.org/address/0x06E33C181394c4910D078F71855fF6c5ccA0f375
+
+##### After Deployment
+`npx hardhat run scripts/add_tokens.ts --network kkrtTestnet`
+`npx hardhat run scripts/add_currency_payments.ts --network kkrtTestnet`
+
+
 ### Base Sepolia
 
 #### Deploy erc20 tokens
@@ -66,18 +108,3 @@ Url - https://sepolia.basescan.org/address/0x2977c7941c59572433DF543cDBDF92a5Ae8
 ##### After Deployment
 `npx hardhat run scripts/add_tokens.ts --network baseTestnet`
 `npx hardhat run scripts/add_currency_payments.ts --network baseTestnet`
-
-#### Deploy Factory Contract
-Deploy - `npx hardhat run scripts/deploy_factory.ts --network baseTestnet`
-Verify - `npx hardhat verify [PAIR_FACTORY] [DA0_ADDRESS] --network baseTestnet`
-Url - https://sepolia.basescan.org/address/0xaA629706369aB3399D2D538D9d301C32a821927F
-
-#### Deploy WETH
-Deploy - `npx hardhat run scripts/deploy_weth.ts --network baseTestnet`
-Verify - `npx hardhat verify [WETH] --network baseTestnet`
-Url - https://sepolia.basescan.org/address/0xcB05E9aCA0d9b9d51d61E729b76e962e84F52f2A
-
-#### Deploy Router Contract
-Deploy - `npx hardhat run scripts/deploy_router.ts --network baseTestnet`
-Verify - `npx hardhat verify [ROUTER] [PAIR_FACTORY] [WETH] --network baseTestnet`
-Url - https://sepolia.basescan.org/address/0x2Ce330aEBf8a7b1c46CF70c21c7f2BaD9114b39A

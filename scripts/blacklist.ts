@@ -8,7 +8,7 @@ async function main() {
 
   await shadow.addBlacklist("0x3950355B679D6d115Bb680C620a3B7b32f540001");
 
-  console.log("Address Whitelisted ...");
+  console.log("Address Blacklisted ...");
 }
 
 // We recommend this pattern to be able to use async/await everywhere

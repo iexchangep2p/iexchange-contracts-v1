@@ -1,17 +1,17 @@
 import { ethers } from "hardhat";
 
 async function main() {
-  // const shadow = await ethers.getContractAt(
-  //   "AMLBlacklist",
-  //   process.env.AML!
-  // );
+  const shadow = await ethers.getContractAt(
+    "AMLBlacklist",
+    process.env.AML!
+  );
 
-  // await shadow.addAgent("0x8DB769ccD2f5946a94fCe8b3Ad9a296D5309c36c");
+  await shadow.addAgent(process.env.DA0_ADDRESS!);
   const shadowey = await ethers.getContractAt(
     "KYCWhitelist",
     process.env.KYC!
   );
-  await shadowey.addAgent("0x8DB769ccD2f5946a94fCe8b3Ad9a296D5309c36c");
+  await shadowey.addAgent(process.env.DA0_ADDRESS!);
 
   console.log("Agents Added ...");
 }
