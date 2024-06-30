@@ -1,4 +1,4 @@
-# iExchange = DEX + P2P (Onchian)
+# iExchange = P2P (Onchian)
 
 P2P contract uses an optimistic P2P algorithm, find spec here [P2P Spec](./p2p.spec.md).
 
