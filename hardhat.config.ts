@@ -27,8 +27,8 @@ const config: HardhatUserConfig = {
       chainId: 84532,
       accounts: [process.env.PRIVATE_KEY!],
     },
-    kkrtTestnet: {
-      url: "https://sepolia-rpc.kakarot.org/",
+    kakarotSepolia: {
+      url: "https://sepolia.kakarotscan.org/",
       chainId: 1802203764,
       accounts: [process.env.PRIVATE_KEY!],
     },
@@ -36,15 +36,16 @@ const config: HardhatUserConfig = {
   etherscan: {
     apiKey: {
       baseSepolia: process.env.ETHERSCAN_KEY!,
-      kkrtTestnet: "anything",
+      "kakarotSepolia": "testnet/evm/1802203764",
     },
     customChains: [
       {
-        network: "kkrtTestnet",
+        network: "kakarotSepolia",
         chainId: 1802203764,
         urls: {
-          apiURL: "https://api.routescan.io/v2/network/testnet/evm/1802203764_2/etherscan",
-          browserURL: "https://sepolia-blockscout.kakarot.org/",
+          apiURL:
+            "https://api.routescan.io/v2/network/testnet/evm/1802203764_2/etherscan",
+          browserURL: "https://routescan.io",
         },
       },
     ],
