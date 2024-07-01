@@ -28,7 +28,7 @@ const config: HardhatUserConfig = {
       accounts: [process.env.PRIVATE_KEY!],
     },
     kakarotSepolia: {
-      url: "https://sepolia.kakarotscan.org/",
+      url: "https://sepolia-rpc.kakarot.org/",
       chainId: 1802203764,
       accounts: [process.env.PRIVATE_KEY!],
     },
@@ -45,7 +45,7 @@ const config: HardhatUserConfig = {
         urls: {
           apiURL:
             "https://api.routescan.io/v2/network/testnet/evm/1802203764_2/etherscan",
-          browserURL: "https://routescan.io",
+          browserURL: "https://sepolia.kakarotscan.org",
         },
       },
     ],

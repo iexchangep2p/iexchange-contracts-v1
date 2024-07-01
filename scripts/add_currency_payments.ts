@@ -18,15 +18,15 @@ async function main() {
   const mp = "M-Pesa";
 
   // await shadow.addCurrency(cedi);
-  await shadow.addCurrency(naira);
+  // await shadow.addCurrency(naira);
   // await shadow.addCurrency(shill);
   
-  await shadow.addPaymentMethod(momo);
-  await shadow.addPaymentMethod(mp);
-  await shadow.addPaymentMethod(mtn);
+  // await shadow.addPaymentMethod(momo);
+  // await shadow.addPaymentMethod(mp);
+  // await shadow.addPaymentMethod(mtn);
   await shadow.addPaymentMethod(fidelity);
-  await shadow.addPaymentMethod(telecel);
-  await shadow.addPaymentMethod(airtelTigo);
+  // await shadow.addPaymentMethod(telecel);
+  // await shadow.addPaymentMethod(airtelTigo);
 
   console.log("Currencies and Payments Added ...");
 }
