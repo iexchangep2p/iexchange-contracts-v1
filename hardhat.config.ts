@@ -22,6 +22,11 @@ const config: HardhatUserConfig = {
     ],
   },
   networks: {
+    morphTestnet: {
+      url: "https://rpc-quicknode-holesky.morphl2.io",
+      accounts: [process.env.PRIVATE_KEY!],
+      gasPrice: 20000000000, // 2 gwei in wei
+    },
     baseTestnet: {
       url: "https://intensive-tame-sound.base-sepolia.quiknode.pro/4eebc97d37bc1e1c22d663a99a3ddbb0a4cf41c5/",
       chainId: 84532,
@@ -31,14 +36,23 @@ const config: HardhatUserConfig = {
       url: "https://sepolia-rpc.kakarot.org/",
       chainId: 1802203764,
       accounts: [process.env.PRIVATE_KEY!],
-    },
+    }
   },
   etherscan: {
     apiKey: {
       baseSepolia: process.env.ETHERSCAN_KEY!,
-      "kakarotSepolia": "testnet/evm/1802203764",
+      kakarotSepolia: "testnet/evm/1802203764",
+      morphTestnet: "anything",
     },
     customChains: [
+      {
+        network: "morphTestnet",
+        chainId: 2810,
+        urls: {
+          apiURL: "https://explorer-api-holesky.morphl2.io/api? ",
+          browserURL: "https://explorer-holesky.morphl2.io/",
+        },
+      },
       {
         network: "kakarotSepolia",
         chainId: 1802203764,

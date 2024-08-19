@@ -1,5 +1,5 @@
 import { ethers } from "hardhat";
-
+import "dotenv/config";
 async function main() {
   const shadow = await ethers.getContractAt(
     "AMLBlacklist",

@@ -28,6 +28,50 @@ AML & KYC contract with offchian zkKyc agent, find spec here [KYC Spec](./kyc.sp
 
 ## Deployments
 
+### Morph Holesky
+
+##### Cedih
+Deploy - `npx hardhat run scripts/deploy_cd.ts --network morphTestnet`
+Verify - `npx hardhat verify [CEDIH] --network morphTestnet --contract contracts/tokens/Cedih.sol:Cedih`
+Url - https://explorer-holesky.morphl2.io/address/0xE4052c1cCd27C049763fb42D58d612f3C79Bb9FC
+##### Ramp
+Deploy - `npx hardhat run scripts/deploy_rmp.ts --network morphTestnet`
+Verify - `npx hardhat verify [RAMP] --network morphTestnet --contract contracts/tokens/Ramp.sol:Ramp`
+Url - https://explorer-holesky.morphl2.io/address/0x1840BD3e5636Ab619B1A4399b1C60d71b9FEB3a3
+##### TRK
+Deploy - `npx hardhat run scripts/deploy_trk.ts --network morphTestnet`
+Verify - `npx hardhat verify [TRK] --network morphTestnet --contract contracts/tokens/Troken.sol:Troken`
+Url - https://explorer-holesky.morphl2.io/address/0x8F3c46C38506E76F2614621E5c4255BA8B8b12ae
+
+#### Deploy KYC & AML Contracts
+##### IEXATT
+Deploy - `npx hardhat run scripts/deploy_attest.ts --network morphTestnet`
+Verify - `npx hardhat verify --constructor-args contract-args/attest.ts --network morphTestnet [IEXATT]`
+Url - https://explorer-holesky.morphl2.io/address/0x28d4073C5A7eC8eb107331de600c6EE40d057ECC
+##### KYC
+Deploy - `npx hardhat run scripts/deploy_kyc.ts --network morphTestnet`
+Verify - `npx hardhat verify [KYC] [IEXATT] --network morphTestnet`
+Url - https://explorer-holesky.morphl2.io/address/0xf2D9A61999f22245831b2C51904Fe11F80e5bFD0
+##### AML
+Deploy - `npx hardhat run scripts/deploy_aml.ts --network morphTestnet`
+Verify - `npx hardhat verify [AML] --network morphTestnet`
+Url - https://explorer-holesky.morphl2.io/address/0xF99F96fe433E79f2A83c67cBd1a6b1B6b986aA6B
+##### After Deployment
+`npx hardhat run scripts/add_agents.ts --network morphTestnet`
+`npx hardhat run scripts/whitelist.ts --network morphTestnet`
+`npx hardhat run scripts/blacklist.ts --network morphTestnet`
+#### Deploy Optimistic P2P contract
+Deploy - `npx hardhat run scripts/deploy_p2p.ts --network morphTestnet`
+Verify - `npx hardhat verify --constructor-args contract-args/p2p.ts --network morphTestnet [OP2P]`
+Url - https://explorer-holesky.morphl2.io/address/0x1E7f97Fc8C240D2B26A42d9A50592Fcd78574B41
+
+##### After Deployment
+`npx hardhat run scripts/add_tokens.ts --network morphTestnet`
+`npx hardhat run scripts/add_currency_payments.ts --network morphTestnet`
+`npx hardhat run scripts/register_merchant.ts --network morphTestnet`
+`npx hardhat run scripts/register_settler.ts --network morphTestnet`
+`npx hardhat run scripts/create_offer.ts --network morphTestnet`
+
 ### Base Sepolia
 
 #### Deploy erc20 tokens
