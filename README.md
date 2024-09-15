@@ -42,7 +42,10 @@ Url - https://explorer-holesky.morphl2.io/address/0x1840BD3e5636Ab619B1A4399b1C6
 Deploy - `npx hardhat run scripts/deploy_trk.ts --network morphTestnet`
 Verify - `npx hardhat verify [TRK] --network morphTestnet --contract contracts/tokens/Troken.sol:Troken`
 Url - https://explorer-holesky.morphl2.io/address/0x8F3c46C38506E76F2614621E5c4255BA8B8b12ae
-
+#### Deploy Token Faucet
+Deploy - `npx hardhat run scripts/deploy_faucet.ts --network morphTestnet`
+Verify - `npx hardhat verify --constructor-args contract-args/faucet.ts --network morphTestnet [IXFAUCET]`
+Url - https://explorer-holesky.morphl2.io/address/0x8C49Fd0b3E42DbAE0b13Fde81E3023c626E6f198
 #### Deploy KYC & AML Contracts
 ##### IEXATT
 Deploy - `npx hardhat run scripts/deploy_attest.ts --network morphTestnet`
@@ -125,7 +128,10 @@ Url - https://sepolia.kakarotscan.org/address/0x39a7f0a342a0509C1aC248F379ba283e
 Deploy - `npx hardhat run scripts/deploy_trk.ts --network kakarotSepolia`
 Verify - `npx hardhat verify [TRK] --network kakarotSepolia --contract contracts/tokens/Troken.sol:Troken`
 Url - https://sepolia.kakarotscan.org/address/0x670a1c39227C2475de0459fAB245111F0f78A4Bf
-
+#### Deploy Token Faucet
+Deploy - `npx hardhat run scripts/deploy_faucet.ts --network kakarotSepolia`
+Verify - `npx hardhat verify --constructor-args contract-args/faucet.ts --network kakarotSepolia [IXFAUCET]`
+Url - https://sepolia.kakarotscan.org/address/0x1AE45424C98301e1D05e25fB4dbc748156aB3092
 #### Deploy KYC & AML Contracts
 ##### IEXATT
 Deploy - `npx hardhat run scripts/deploy_attest.ts --network kakarotSepolia`
