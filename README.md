@@ -140,7 +140,7 @@ Url - https://sepolia.kakarotscan.org/address/0xB3b75E9d2BAE1Aa3AF2caeC46ec7377c
 ##### KYC
 Deploy - `npx hardhat run scripts/deploy_kyc.ts --network kakarotSepolia`
 Verify - `npx hardhat verify [KYC] [IEXATT] --network kakarotSepolia`
-Url - https://sepolia.kakarotscan.org/address/0x9A7477C4fcD9ef5715cD1a96c567117F9fda3a7d
+Url - https://sepolia.kakarotscan.org/address/0x068A7f295c65fDa1d1d76A25F1e172D16dBbD05C
 ##### AML
 Deploy - `npx hardhat run scripts/deploy_aml.ts --network kakarotSepolia`
 Verify - `npx hardhat verify [AML] --network kakarotSepolia`
