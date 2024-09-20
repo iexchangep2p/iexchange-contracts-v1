@@ -42,12 +42,13 @@ contract KYCWhitelist is IKYCWhitelist, OffchainAgent {
     }
 
     function getKYCLevel(address _address) external view returns (KYCLevel level) {
-        level =  addressKYCLevel[_address];
-        if (level < KYCLevel.level2) {
-            IExAttest.Attestation memory attestation = zkKyc.getiExAttestation(_address);
-            if (attestation.uid != 0) {
-                level = KYCLevel.level2;
-            }
-        }
+        level = KYCLevel.level4;
+        // level =  addressKYCLevel[_address];
+        // if (level < KYCLevel.level2) {
+        //     IExAttest.Attestation memory attestation = zkKyc.getiExAttestation(_address);
+        //     if (attestation.uid != 0) {
+        //         level = KYCLevel.level2;
+        //     }
+        // }
     }
 }

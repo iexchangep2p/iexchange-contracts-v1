@@ -12,8 +12,8 @@ const settlerStakeAmount = BigInt(1500 * 1e18);
 const settlerMinTime = ONE_MINUTE * 15;
 const settlerMaxTime = ONE_HOUR;
 const daoMinTime = ONE_HOUR;
-const concurrentSettlerSettlements = 3;
-const concurrentMerchantSettlements = 3;
+const concurrentSettlerSettlements = 100;
+const concurrentMerchantSettlements = 100;
 const appealAfter = ONE_MINUTE * 30;
 const maxAppealRounds = 4;
 
