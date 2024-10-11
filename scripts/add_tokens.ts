@@ -6,9 +6,9 @@ async function main() {
     process.env.OP2P!
   );
 
-  await shadow.addToken(process.env.CEDIH!);
-  await shadow.addToken(process.env.RAMP!);
-  await shadow.addToken(process.env.TRK!);
+  await shadow.addToken(process.env.IXUSDC!);
+  // await shadow.removeToken(process.env.RAMP!);
+  // await shadow.removeToken(process.env.TRK!);
 
   console.log("Tokens Added ...");
 }
