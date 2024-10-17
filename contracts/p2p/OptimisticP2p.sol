@@ -399,7 +399,6 @@ contract OptimisticP2P is P2Pparams, Ownable, ReentrancyGuard, Helpers {
                 order.quantity
             );
         } else {
-            order.status = OrderState.cancelled;
             if (order.status == OrderState.pending) {
                 if (msg.sender != offer.merchant) {
                     revert UnauthorizedUser("Invalid Merchant!");
@@ -408,6 +407,7 @@ contract OptimisticP2P is P2Pparams, Ownable, ReentrancyGuard, Helpers {
                 if (msg.sender != order.trader) {
                     revert UnauthorizedUser("Invalid Trader!");
                 }
+                order.status = OrderState.cancelled;
                 SafeERC20.safeTransfer(
                     IERC20(offer.token),
                     offer.merchant,

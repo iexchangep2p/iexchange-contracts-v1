@@ -127,40 +127,40 @@ Url - https://sepolia.basescan.org/address/0x2977c7941c59572433DF543cDBDF92a5Ae8
 ##### Cedih
 Deploy - `npx hardhat run scripts/deploy_cd.ts --network kakarotSepolia`
 Verify - `npx hardhat verify [CEDIH] --network kakarotSepolia --contract contracts/tokens/Cedih.sol:Cedih`
-Url - https://sepolia.kakarotscan.org/address/0x3d63fEc287aD7963B614eD873690A745E635D5Fa
+Url - https://sepolia.kakarotscan.org/address/0xB2002EaFC86DD21eaDAed4b1a7857357a6C3f41f
 ##### Ramp
 Deploy - `npx hardhat run scripts/deploy_rmp.ts --network kakarotSepolia`
 Verify - `npx hardhat verify [RAMP] --network kakarotSepolia --contract contracts/tokens/Ramp.sol:Ramp`
-Url - https://sepolia.kakarotscan.org/address/0x39a7f0a342a0509C1aC248F379ba283e99c36Ae5
+Url - https://sepolia.kakarotscan.org/address/0x08FD9b19435dD5bdbaF183EE3fe68dCD6fD709EF
 ##### TRK
 Deploy - `npx hardhat run scripts/deploy_trk.ts --network kakarotSepolia`
 Verify - `npx hardhat verify [TRK] --network kakarotSepolia --contract contracts/tokens/Troken.sol:Troken`
-Url - https://sepolia.kakarotscan.org/address/0x670a1c39227C2475de0459fAB245111F0f78A4Bf
+Url - https://sepolia.kakarotscan.org/address/0x53637cE365d796FA32eE3FB1A0cB8408Df0fB554
 ##### IXUSDC
 Deploy - `npx hardhat run scripts/deploy_usdc.ts --network kakarotSepolia`
 Verify - `npx hardhat verify [IXUSDC] --network kakarotSepolia --contract contracts/tokens/IXUSDC.sol:IXUSDC`
-Url - https://sepolia.kakarotscan.org/address/0x4dAcc5d81d1ed0751707d5Cd77e4bd606C0EDadC
+Url - https://sepolia.kakarotscan.org/address/0xF5Bd8F96A9cb7e27a838aFA4AF55df5594bc9041
 ##### IXUSDT
 Deploy - `npx hardhat run scripts/deploy_usdt.ts --network kakarotSepolia`
 Verify - `npx hardhat verify [IXUSDT] --network kakarotSepolia --contract contracts/tokens/IXUSDT.sol:IXUSDT`
-Url - https://sepolia.kakarotscan.org/address/0x2a45347617C7f75772879bd63517A89d277eAda0
+Url - https://sepolia.kakarotscan.org/address/0x7281b4cCA308aF757D8BE75e62241e5e0c88CAA3
 #### Deploy Token Faucet
 Deploy - `npx hardhat run scripts/deploy_faucet.ts --network kakarotSepolia`
 Verify - `npx hardhat verify --constructor-args contract-args/faucet.ts --network kakarotSepolia [IXFAUCET]`
-Url - https://sepolia.kakarotscan.org/address/0x1AE45424C98301e1D05e25fB4dbc748156aB3092
+Url - https://sepolia.kakarotscan.org/address/0x5FBDb7C37E3338130F925ec5355B29A6d6Da5309
 #### Deploy KYC & AML Contracts
 ##### IEXATT
 Deploy - `npx hardhat run scripts/deploy_attest.ts --network kakarotSepolia`
 Verify - `npx hardhat verify --constructor-args contract-args/attest.ts --network kakarotSepolia [IEXATT]`
-Url - https://sepolia.kakarotscan.org/address/0xB3b75E9d2BAE1Aa3AF2caeC46ec7377c27f09D28
+Url - https://sepolia.kakarotscan.org/address/0xc1272b64F1b500dCe5059b3951afEA77b329e2B9
 ##### KYC
 Deploy - `npx hardhat run scripts/deploy_kyc.ts --network kakarotSepolia`
 Verify - `npx hardhat verify [KYC] [IEXATT] --network kakarotSepolia`
-Url - https://sepolia.kakarotscan.org/address/0x068A7f295c65fDa1d1d76A25F1e172D16dBbD05C
+Url - https://sepolia.kakarotscan.org/address/0x76411bBAAf025F3D25aFFcEb79209eE89cA554Bd
 ##### AML
 Deploy - `npx hardhat run scripts/deploy_aml.ts --network kakarotSepolia`
 Verify - `npx hardhat verify [AML] --network kakarotSepolia`
-Url - https://sepolia.kakarotscan.org/address/0xFB7E20739Fa2b8b4351c9F87a1C68b728E7aa614
+Url - https://sepolia.kakarotscan.org/address/0x6e5407517BaBc317b4D4003f12f51a9D2179ee7E
 ##### After Deployment
 `npx hardhat run scripts/add_agents.ts --network kakarotSepolia`
 `npx hardhat run scripts/whitelist.ts --network kakarotSepolia`
@@ -168,7 +168,7 @@ Url - https://sepolia.kakarotscan.org/address/0xFB7E20739Fa2b8b4351c9F87a1C68b72
 #### Deploy Optimistic P2P contract
 Deploy - `npx hardhat run scripts/deploy_p2p.ts --network kakarotSepolia`
 Verify - `npx hardhat verify --constructor-args contract-args/p2p.ts --network kakarotSepolia [OP2P]`
-Url - https://sepolia.kakarotscan.org/address/0x06E33C181394c4910D078F71855fF6c5ccA0f375
+Url - https://sepolia.kakarotscan.org/address/0xEd64A15A6223588794A976d344990001a065F3f1
 
 ##### After Deployment
 `npx hardhat run scripts/add_tokens.ts --network kakarotSepolia`

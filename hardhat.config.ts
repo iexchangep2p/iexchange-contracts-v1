@@ -33,15 +33,16 @@ const config: HardhatUserConfig = {
       accounts: [process.env.PRIVATE_KEY!],
     },
     kakarotSepolia: {
-      url: "https://sepolia-rpc.kakarot.org/",
-      chainId: 1802203764,
+      url: "https://sepolia-rpc.kakarot.org",
+      chainId: 920637907288165,
       accounts: [process.env.PRIVATE_KEY!],
+      gasPrice: 20000000000, // 2 gwei in wei
     }
   },
   etherscan: {
     apiKey: {
       baseSepolia: process.env.ETHERSCAN_KEY!,
-      kakarotSepolia: "testnet/evm/1802203764",
+      kakarotSepolia: "testnet/evm/920637907288165",
       morphTestnet: "anything",
     },
     customChains: [
@@ -55,11 +56,11 @@ const config: HardhatUserConfig = {
       },
       {
         network: "kakarotSepolia",
-        chainId: 1802203764,
+        chainId: 920637907288165,
         urls: {
           apiURL:
-            "https://api.routescan.io/v2/network/testnet/evm/1802203764_2/etherscan",
-          browserURL: "https://sepolia.kakarotscan.org",
+            "https://api.routescan.io/v2/network/testnet/evm/920637907288165/etherscan",
+          browserURL: "https://blockscout-kkrt-sepolia.karnot.xyz",
         },
       },
     ],

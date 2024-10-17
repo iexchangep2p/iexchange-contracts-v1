@@ -2,7 +2,7 @@ import { ethers } from "hardhat";
 import faucet from "../contract-args/faucet";
 
 async function main() {
-  const shadow = await ethers.deployContract("IXFaucet", faucet);
+  const shadow = await ethers.deployContract("IXFaucet", [faucet]);
 
   await shadow.waitForDeployment();
 

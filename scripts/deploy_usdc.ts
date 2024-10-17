@@ -1,7 +1,7 @@
 import { ethers } from "hardhat";
 
 async function main() {
-  const shadow = await ethers.deployContract("IXUSDC");
+  const shadow = await ethers.deployContract("IXUSDC", {gasLimit: 1000000});
 
   await shadow.waitForDeployment();
 

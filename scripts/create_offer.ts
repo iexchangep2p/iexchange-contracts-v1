@@ -10,28 +10,27 @@ async function main() {
   const momo = "Mobile Money";
   const fidelity = "Fidelity Bank";
   const mp = "M-Pesa";
+  const mtn = "MTN Mobile Money";
+  const telecel = "Telecel Mobile Money";
+  const airtelTigo = "Airtel Tigo Mobile Money";
 
-  // await shadow.createOffer();
-  // buy
-  const token = process.env.RAMP!;
-  const currency = naira;
-  const paymentMethod = fidelity;
-  const rate = 11;
-  const minOrder = BigInt(1e4) * BigInt(1e18);
-  const maxOrder = BigInt(1e6) * BigInt(1e18);
-  const accountHash = ethers.keccak256(
-    ethers.encodeBytes32String("Seth Baah Kusi0553339728")
-  );
-  const depositAddress = process.env.DA0_ADDRESS!;
-  const offerType = 1;
+  // IXUSDC
+  // IXUSDT
+  // CEDIH
+  // RAMP
+  // TRK
 
-  const cd = await ethers.getContractAt("Ramp", process.env.RAMP!);
+  const token = process.env.IXUSDC!;
+  const currency = shill;
+  const paymentMethod = mp;
+  const rate = 2200;
+  const minOrder = BigInt(1e3) * BigInt(1e18);
+  const maxOrder = BigInt(1e8) * BigInt(1e18);
+  const accountHash = ethers.keccak256(ethers.encodeBytes32String("nkbkd1234"));
+  const depositAddress = "0xe0f529c753a22b77f8292f3695287787fA27BEBf";
+  const offerType = 0;
 
-  const merchantStakeAmount = BigInt(1500 * 1e18);
-
-  await cd.approve(process.env.OP2P!, merchantStakeAmount);
-
-  await shadow.createOffer(
+  const tx = await shadow.createOffer(
     token,
     currency,
     paymentMethod,
@@ -43,7 +42,7 @@ async function main() {
     offerType
   );
 
-  console.log("Created offer ...");
+  console.log("Created offer ...", tx.hash);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

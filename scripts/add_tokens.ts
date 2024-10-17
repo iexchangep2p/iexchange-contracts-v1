@@ -6,11 +6,11 @@ async function main() {
     process.env.OP2P!
   );
 
-  await shadow.addToken(process.env.IXUSDC!);
+  const tx = await shadow.addToken(process.env.CEDIH!);
   // await shadow.removeToken(process.env.RAMP!);
   // await shadow.removeToken(process.env.TRK!);
 
-  console.log("Tokens Added ...");
+  console.log("Tokens Added ...", tx.hash);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
