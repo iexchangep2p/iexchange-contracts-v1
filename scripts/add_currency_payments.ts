@@ -9,6 +9,8 @@ async function main() {
   const cedi = "GHS";
   const naira = "NGN";
   const shill = "KES";
+  const usd = "USD";
+  const euro = "EUR";
 
   const momo = "Mobile Money";
   const fidelity = "Fidelity Bank";
@@ -16,12 +18,16 @@ async function main() {
   const telecel = "Telecel Mobile Money";
   const airtelTigo = "Airtel Tigo Mobile Money";
   const mp = "M-Pesa";
+  const rev = "Revolut";
+  const bank = "Bank Transfer";
+  const ze = "Zelle";
+  const pm = "PerfectMoney"
 
-  // await shadow.addCurrency(cedi);
-  // await shadow.addCurrency(naira);
+  // await shadow.addCurrency(euro);
+  // await shadow.addCurrency(euro);
   // await shadow.addCurrency(shill);
   
-  // await shadow.addPaymentMethod(momo);
+  // await shadow.addPaymentMethod(rev);
   // await shadow.addPaymentMethod(mp);
   // await shadow.addPaymentMethod(mtn);
   // await shadow.addPaymentMethod(fidelity);

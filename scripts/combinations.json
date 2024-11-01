@@ -1,0 +1,1252 @@
+[
+    {
+        "payment_method": "M-Pesa",
+        "token": "RMP",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "M-Pesa",
+        "token": "RMP",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "M-Pesa",
+        "token": "RMP",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "M-Pesa",
+        "token": "RMP",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "M-Pesa",
+        "token": "RMP",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "M-Pesa",
+        "token": "USDC",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "M-Pesa",
+        "token": "USDC",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "M-Pesa",
+        "token": "USDC",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "M-Pesa",
+        "token": "USDC",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "M-Pesa",
+        "token": "USDC",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "M-Pesa",
+        "token": "USDT",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "M-Pesa",
+        "token": "USDT",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "M-Pesa",
+        "token": "USDT",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "M-Pesa",
+        "token": "USDT",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "M-Pesa",
+        "token": "USDT",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "M-Pesa",
+        "token": "TRK",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "M-Pesa",
+        "token": "TRK",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "M-Pesa",
+        "token": "TRK",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "M-Pesa",
+        "token": "TRK",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "M-Pesa",
+        "token": "TRK",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "M-Pesa",
+        "token": "CEDIH",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "M-Pesa",
+        "token": "CEDIH",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "M-Pesa",
+        "token": "CEDIH",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "M-Pesa",
+        "token": "CEDIH",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "M-Pesa",
+        "token": "CEDIH",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Airtel Tigo Mobile Money",
+        "token": "RMP",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Airtel Tigo Mobile Money",
+        "token": "RMP",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Airtel Tigo Mobile Money",
+        "token": "RMP",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Airtel Tigo Mobile Money",
+        "token": "RMP",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Airtel Tigo Mobile Money",
+        "token": "RMP",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Airtel Tigo Mobile Money",
+        "token": "USDC",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Airtel Tigo Mobile Money",
+        "token": "USDC",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Airtel Tigo Mobile Money",
+        "token": "USDC",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Airtel Tigo Mobile Money",
+        "token": "USDC",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Airtel Tigo Mobile Money",
+        "token": "USDC",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Airtel Tigo Mobile Money",
+        "token": "USDT",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Airtel Tigo Mobile Money",
+        "token": "USDT",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Airtel Tigo Mobile Money",
+        "token": "USDT",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Airtel Tigo Mobile Money",
+        "token": "USDT",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Airtel Tigo Mobile Money",
+        "token": "USDT",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Airtel Tigo Mobile Money",
+        "token": "TRK",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Airtel Tigo Mobile Money",
+        "token": "TRK",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Airtel Tigo Mobile Money",
+        "token": "TRK",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Airtel Tigo Mobile Money",
+        "token": "TRK",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Airtel Tigo Mobile Money",
+        "token": "TRK",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Airtel Tigo Mobile Money",
+        "token": "CEDIH",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Airtel Tigo Mobile Money",
+        "token": "CEDIH",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Airtel Tigo Mobile Money",
+        "token": "CEDIH",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Airtel Tigo Mobile Money",
+        "token": "CEDIH",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Airtel Tigo Mobile Money",
+        "token": "CEDIH",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Fidelity Bank",
+        "token": "RMP",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Fidelity Bank",
+        "token": "RMP",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Fidelity Bank",
+        "token": "RMP",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Fidelity Bank",
+        "token": "RMP",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Fidelity Bank",
+        "token": "RMP",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Fidelity Bank",
+        "token": "USDC",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Fidelity Bank",
+        "token": "USDC",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Fidelity Bank",
+        "token": "USDC",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Fidelity Bank",
+        "token": "USDC",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Fidelity Bank",
+        "token": "USDC",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Fidelity Bank",
+        "token": "USDT",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Fidelity Bank",
+        "token": "USDT",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Fidelity Bank",
+        "token": "USDT",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Fidelity Bank",
+        "token": "USDT",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Fidelity Bank",
+        "token": "USDT",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Fidelity Bank",
+        "token": "TRK",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Fidelity Bank",
+        "token": "TRK",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Fidelity Bank",
+        "token": "TRK",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Fidelity Bank",
+        "token": "TRK",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Fidelity Bank",
+        "token": "TRK",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Fidelity Bank",
+        "token": "CEDIH",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Fidelity Bank",
+        "token": "CEDIH",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Fidelity Bank",
+        "token": "CEDIH",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Fidelity Bank",
+        "token": "CEDIH",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Fidelity Bank",
+        "token": "CEDIH",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Mtn Mobile Money",
+        "token": "RMP",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Mtn Mobile Money",
+        "token": "RMP",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Mtn Mobile Money",
+        "token": "RMP",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Mtn Mobile Money",
+        "token": "RMP",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Mtn Mobile Money",
+        "token": "RMP",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Mtn Mobile Money",
+        "token": "USDC",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Mtn Mobile Money",
+        "token": "USDC",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Mtn Mobile Money",
+        "token": "USDC",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Mtn Mobile Money",
+        "token": "USDC",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Mtn Mobile Money",
+        "token": "USDC",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Mtn Mobile Money",
+        "token": "USDT",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Mtn Mobile Money",
+        "token": "USDT",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Mtn Mobile Money",
+        "token": "USDT",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Mtn Mobile Money",
+        "token": "USDT",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Mtn Mobile Money",
+        "token": "USDT",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Mtn Mobile Money",
+        "token": "TRK",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Mtn Mobile Money",
+        "token": "TRK",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Mtn Mobile Money",
+        "token": "TRK",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Mtn Mobile Money",
+        "token": "TRK",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Mtn Mobile Money",
+        "token": "TRK",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Mtn Mobile Money",
+        "token": "CEDIH",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Mtn Mobile Money",
+        "token": "CEDIH",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Mtn Mobile Money",
+        "token": "CEDIH",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Mtn Mobile Money",
+        "token": "CEDIH",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Mtn Mobile Money",
+        "token": "CEDIH",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Mobile Money",
+        "token": "RMP",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Mobile Money",
+        "token": "RMP",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Mobile Money",
+        "token": "RMP",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Mobile Money",
+        "token": "RMP",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Mobile Money",
+        "token": "RMP",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Mobile Money",
+        "token": "USDC",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Mobile Money",
+        "token": "USDC",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Mobile Money",
+        "token": "USDC",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Mobile Money",
+        "token": "USDC",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Mobile Money",
+        "token": "USDC",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Mobile Money",
+        "token": "USDT",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Mobile Money",
+        "token": "USDT",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Mobile Money",
+        "token": "USDT",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Mobile Money",
+        "token": "USDT",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Mobile Money",
+        "token": "USDT",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Mobile Money",
+        "token": "TRK",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Mobile Money",
+        "token": "TRK",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Mobile Money",
+        "token": "TRK",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Mobile Money",
+        "token": "TRK",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Mobile Money",
+        "token": "TRK",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Mobile Money",
+        "token": "CEDIH",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Mobile Money",
+        "token": "CEDIH",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Mobile Money",
+        "token": "CEDIH",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Mobile Money",
+        "token": "CEDIH",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Mobile Money",
+        "token": "CEDIH",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Telecel Mobile Money",
+        "token": "RMP",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Telecel Mobile Money",
+        "token": "RMP",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Telecel Mobile Money",
+        "token": "RMP",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Telecel Mobile Money",
+        "token": "RMP",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Telecel Mobile Money",
+        "token": "RMP",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Telecel Mobile Money",
+        "token": "USDC",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Telecel Mobile Money",
+        "token": "USDC",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Telecel Mobile Money",
+        "token": "USDC",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Telecel Mobile Money",
+        "token": "USDC",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Telecel Mobile Money",
+        "token": "USDC",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Telecel Mobile Money",
+        "token": "USDT",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Telecel Mobile Money",
+        "token": "USDT",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Telecel Mobile Money",
+        "token": "USDT",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Telecel Mobile Money",
+        "token": "USDT",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Telecel Mobile Money",
+        "token": "USDT",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Telecel Mobile Money",
+        "token": "TRK",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Telecel Mobile Money",
+        "token": "TRK",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Telecel Mobile Money",
+        "token": "TRK",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Telecel Mobile Money",
+        "token": "TRK",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Telecel Mobile Money",
+        "token": "TRK",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Telecel Mobile Money",
+        "token": "CEDIH",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Telecel Mobile Money",
+        "token": "CEDIH",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Telecel Mobile Money",
+        "token": "CEDIH",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Telecel Mobile Money",
+        "token": "CEDIH",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Telecel Mobile Money",
+        "token": "CEDIH",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Revolut",
+        "token": "RMP",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Revolut",
+        "token": "RMP",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Revolut",
+        "token": "RMP",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Revolut",
+        "token": "RMP",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Revolut",
+        "token": "RMP",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Revolut",
+        "token": "USDC",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Revolut",
+        "token": "USDC",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Revolut",
+        "token": "USDC",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Revolut",
+        "token": "USDC",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Revolut",
+        "token": "USDC",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Revolut",
+        "token": "USDT",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Revolut",
+        "token": "USDT",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Revolut",
+        "token": "USDT",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Revolut",
+        "token": "USDT",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Revolut",
+        "token": "USDT",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Revolut",
+        "token": "TRK",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Revolut",
+        "token": "TRK",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Revolut",
+        "token": "TRK",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Revolut",
+        "token": "TRK",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Revolut",
+        "token": "TRK",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Revolut",
+        "token": "CEDIH",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Revolut",
+        "token": "CEDIH",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Revolut",
+        "token": "CEDIH",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Revolut",
+        "token": "CEDIH",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Revolut",
+        "token": "CEDIH",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Bank Transfer",
+        "token": "RMP",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Bank Transfer",
+        "token": "RMP",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Bank Transfer",
+        "token": "RMP",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Bank Transfer",
+        "token": "RMP",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Bank Transfer",
+        "token": "RMP",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Bank Transfer",
+        "token": "USDC",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Bank Transfer",
+        "token": "USDC",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Bank Transfer",
+        "token": "USDC",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Bank Transfer",
+        "token": "USDC",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Bank Transfer",
+        "token": "USDC",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Bank Transfer",
+        "token": "USDT",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Bank Transfer",
+        "token": "USDT",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Bank Transfer",
+        "token": "USDT",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Bank Transfer",
+        "token": "USDT",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Bank Transfer",
+        "token": "USDT",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Bank Transfer",
+        "token": "TRK",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Bank Transfer",
+        "token": "TRK",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Bank Transfer",
+        "token": "TRK",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Bank Transfer",
+        "token": "TRK",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Bank Transfer",
+        "token": "TRK",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Bank Transfer",
+        "token": "CEDIH",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Bank Transfer",
+        "token": "CEDIH",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Bank Transfer",
+        "token": "CEDIH",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Bank Transfer",
+        "token": "CEDIH",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Bank Transfer",
+        "token": "CEDIH",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Zelle",
+        "token": "RMP",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Zelle",
+        "token": "RMP",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Zelle",
+        "token": "RMP",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Zelle",
+        "token": "RMP",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Zelle",
+        "token": "RMP",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Zelle",
+        "token": "USDC",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Zelle",
+        "token": "USDC",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Zelle",
+        "token": "USDC",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Zelle",
+        "token": "USDC",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Zelle",
+        "token": "USDC",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Zelle",
+        "token": "USDT",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Zelle",
+        "token": "USDT",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Zelle",
+        "token": "USDT",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Zelle",
+        "token": "USDT",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Zelle",
+        "token": "USDT",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Zelle",
+        "token": "TRK",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Zelle",
+        "token": "TRK",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Zelle",
+        "token": "TRK",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Zelle",
+        "token": "TRK",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Zelle",
+        "token": "TRK",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "Zelle",
+        "token": "CEDIH",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "Zelle",
+        "token": "CEDIH",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "Zelle",
+        "token": "CEDIH",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "Zelle",
+        "token": "CEDIH",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "Zelle",
+        "token": "CEDIH",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "PerfectMoney",
+        "token": "RMP",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "PerfectMoney",
+        "token": "RMP",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "PerfectMoney",
+        "token": "RMP",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "PerfectMoney",
+        "token": "RMP",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "PerfectMoney",
+        "token": "RMP",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "PerfectMoney",
+        "token": "USDC",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "PerfectMoney",
+        "token": "USDC",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "PerfectMoney",
+        "token": "USDC",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "PerfectMoney",
+        "token": "USDC",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "PerfectMoney",
+        "token": "USDC",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "PerfectMoney",
+        "token": "USDT",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "PerfectMoney",
+        "token": "USDT",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "PerfectMoney",
+        "token": "USDT",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "PerfectMoney",
+        "token": "USDT",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "PerfectMoney",
+        "token": "USDT",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "PerfectMoney",
+        "token": "TRK",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "PerfectMoney",
+        "token": "TRK",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "PerfectMoney",
+        "token": "TRK",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "PerfectMoney",
+        "token": "TRK",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "PerfectMoney",
+        "token": "TRK",
+        "currency": "NGN"
+    },
+    {
+        "payment_method": "PerfectMoney",
+        "token": "CEDIH",
+        "currency": "GHS"
+    },
+    {
+        "payment_method": "PerfectMoney",
+        "token": "CEDIH",
+        "currency": "USD"
+    },
+    {
+        "payment_method": "PerfectMoney",
+        "token": "CEDIH",
+        "currency": "EUR"
+    },
+    {
+        "payment_method": "PerfectMoney",
+        "token": "CEDIH",
+        "currency": "KES"
+    },
+    {
+        "payment_method": "PerfectMoney",
+        "token": "CEDIH",
+        "currency": "NGN"
+    }
+]
