@@ -51,10 +51,10 @@ async function main() {
       const currency = offerConfig.currency;
       const paymentMethod = offerConfig.payment_method;
       const rate = rates[offerConfig.currency];
-      const minOrder = BigInt(1e3) * BigInt(1e18);
+      const minOrder = BigInt(10) * BigInt(1e18);
       const maxOrder = BigInt(1e8) * BigInt(1e18);
       const accountHash = ethers.keccak256(
-        ethers.encodeBytes32String("nkbkd1234")
+        ethers.encodeBytes32String("bot1234")
       );
       const depositAddress = "0xe0f529c753a22b77f8292f3695287787fA27BEBf";
       const buyType = 0;
@@ -72,7 +72,7 @@ async function main() {
       );
       console.log("Created buy offer ...", buyTx.hash);
       await delay(2000);
-      const sellType = 0;
+      const sellType = 1;
       const sellTx = await shadow.createOffer(
         token,
         currency,
@@ -88,7 +88,7 @@ async function main() {
       await delay(2000);
     } catch (error) {
       console.log(error);
-      
+
       console.log("Error on: ", c);
     }
   }
