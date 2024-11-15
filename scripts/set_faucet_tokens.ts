@@ -7,7 +7,7 @@ async function main() {
     process.env.IXFAUCET!
   );
 
-  await shadow.setTokens(faucet);
+  await shadow.setTokens(faucet[0]);
 
 
   console.log("new faucet tokens set");

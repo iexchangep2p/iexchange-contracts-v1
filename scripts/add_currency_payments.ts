@@ -24,16 +24,25 @@ async function main() {
   const ze = "Zelle";
   const pm = "PerfectMoney"
 
-  // await shadow.addCurrency(euro);
-  // await shadow.addCurrency(euro);
-  // await shadow.addCurrency(shill);
+  await shadow.addCurrency(euro);
+  await shadow.addCurrency(euro);
+  await shadow.addCurrency(shill);
+  await shadow.addCurrency(cedi);
+  await shadow.addCurrency(naira);
+  await shadow.addCurrency(usd);
   
   await shadow.addPaymentMethod(mtn2);
-  // await shadow.addPaymentMethod(mp);
-  // await shadow.addPaymentMethod(mtn);
-  // await shadow.addPaymentMethod(fidelity);
-  // await shadow.addPaymentMethod(telecel);
-  // await shadow.addPaymentMethod(airtelTigo);
+  await shadow.addPaymentMethod(mp);
+  await shadow.addPaymentMethod(mtn);
+  await shadow.addPaymentMethod(fidelity);
+  await shadow.addPaymentMethod(telecel);
+  await shadow.addPaymentMethod(airtelTigo);
+  await shadow.addPaymentMethod(momo);
+  await shadow.addPaymentMethod(rev);
+  await shadow.addPaymentMethod(bank);
+  await shadow.addPaymentMethod(ze);
+  await shadow.addPaymentMethod(pm);
+  
 
   console.log("Currencies and Payments Added ...");
 }

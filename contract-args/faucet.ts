@@ -8,4 +8,4 @@ const usdc = process.env.IXUSDC!;
 
 const faucet = [cedih, troken, ramp, usdt, usdc].filter(Boolean)
 
-export default faucet;
+export default [faucet];

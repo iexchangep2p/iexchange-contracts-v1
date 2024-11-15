@@ -56,6 +56,8 @@ async function main() {
       const accountHash = ethers.keccak256(
         ethers.encodeBytes32String("bot1234")
       );
+
+      console.log("Creating offer ...", c.currency, accountHash);
       const depositAddress = "0xe0f529c753a22b77f8292f3695287787fA27BEBf";
       const buyType = 0;
 
