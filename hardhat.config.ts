@@ -37,7 +37,12 @@ const config: HardhatUserConfig = {
       chainId: 920637907288165,
       accounts: [process.env.PRIVATE_KEY!],
       gasPrice: 20000000000, // 2 gwei in wei
-    }
+    },
+    arbitrumSepolia: {
+      url: 'https://sepolia-rollup.arbitrum.io/rpc',
+      chainId: 421614,
+      accounts: [process.env.PRIVATE_KEY!],
+    },
   },
   etherscan: {
     apiKey: {
@@ -52,6 +57,15 @@ const config: HardhatUserConfig = {
         urls: {
           apiURL: "https://explorer-api-holesky.morphl2.io/api? ",
           browserURL: "https://explorer-holesky.morphl2.io/",
+        },
+      },
+      {
+        
+        network: "arbitrumSepolia",
+        chainId: 421614,
+        urls: {
+            apiURL: "https://api-sepolia.arbiscan.io/api",
+            browserURL: "https://sepolia.arbiscan.io/",
         },
       },
       {

@@ -31,13 +31,13 @@ async function main() {
   const tokens: Record<string, string> = {
     USDC: process.env.IXUSDC!,
     USDT: process.env.IXUSDT!,
-    CEDIH: process.env.CEDIH!,
-    RMP: process.env.RAMP!,
-    TRK: process.env.TRK!,
+    // CEDIH: process.env.CEDIH!,
+    // RMP: process.env.RAMP!,
+    // TRK: process.env.TRK!,
   };
 
   const rates: Record<string, number> = {
-    GHS: 12,
+    GHS: 16,
     USD: 1,
     EUR: 2,
     NGN: 2100,
@@ -48,11 +48,12 @@ async function main() {
     try {
       const offerConfig = c as OfferConfig;
       const token = tokens[offerConfig.token];
+      if (!token) continue;
       const currency = offerConfig.currency;
       const paymentMethod = offerConfig.payment_method;
       const rate = rates[offerConfig.currency];
       const minOrder = BigInt(10) * BigInt(1e18);
-      const maxOrder = BigInt(1e8) * BigInt(1e18);
+      const maxOrder = BigInt(1e6) * BigInt(1e18);
       const accountHash = ethers.keccak256(
         ethers.encodeBytes32String("bot1234")
       );
