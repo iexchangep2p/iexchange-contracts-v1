@@ -27,7 +27,9 @@ AML & KYC contract with offchian zkKyc agent, find spec here [KYC Spec](./kyc.sp
 6. Deploy Router
 
 ## Deployments
-### Arbitrum Sepolia
+
+<details>
+<summary> Arbitrum Sepolia </summary>
 
 #### Deploy erc20 tokens
 
@@ -79,8 +81,9 @@ Url - <https://sepolia.arbscan.org/address/0x3B42D1dEF553EE484984C6c3c769BE58005
 
 `npx hardhat run scripts/add_tokens.ts --network arbTestnet`
 `npx hardhat run scripts/add_currency_payments.ts --network arbTestnet`
-
-### Morph Holesky
+</details>
+<details>
+<summary>  Morph Holesky </summary>
 
 ##### Cedih
 
@@ -157,8 +160,9 @@ Url - <https://explorer-holesky.morphl2.io/address/0x1E7f97Fc8C240D2B26A42d9A505
 `npx hardhat run scripts/register_merchant.ts --network morphTestnet`
 `npx hardhat run scripts/register_settler.ts --network morphTestnet`
 `npx hardhat run scripts/create_offer.ts --network morphTestnet`
-
-### Base Sepolia
+</details>
+<details>
+<summary>  Base Sepolia</summary>
 
 #### Deploy erc20 tokens
 
@@ -210,8 +214,9 @@ Url - <https://sepolia.basescan.org/address/0x2977c7941c59572433DF543cDBDF92a5Ae
 
 `npx hardhat run scripts/add_tokens.ts --network baseTestnet`
 `npx hardhat run scripts/add_currency_payments.ts --network baseTestnet`
-
-### Kakarot Sepolia
+</details>
+<details>
+<summary> Kakarot Sepolia</summary>
 
 ##### Cedih
 
@@ -288,3 +293,4 @@ Url - <https://sepolia.kakarotscan.org/address/0xEd64A15A6223588794A976d34499000
 `npx hardhat run scripts/register_merchant.ts --network kakarotSepolia`
 `npx hardhat run scripts/register_settler.ts --network kakarotSepolia`
 `npx hardhat run scripts/create_offer.ts --network kakarotSepolia`
+</details>
