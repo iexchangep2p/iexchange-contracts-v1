@@ -43,12 +43,19 @@ const config: HardhatUserConfig = {
       chainId: 421614,
       accounts: [process.env.PRIVATE_KEY!],
     },
+    scrollSepolia: {
+      url: 'https://sepolia-rpc.scroll.io',
+      chainId: 534351,
+      accounts: [process.env.PRIVATE_KEY!],
+    },
   },
   etherscan: {
     apiKey: {
       baseSepolia: process.env.ETHERSCAN_KEY!,
       kakarotSepolia: "testnet/evm/920637907288165",
       morphTestnet: "anything",
+      arbitrumSepolia: process.env.ETHERSCAN_KEY!,
+      scrollSepolia: process.env.ETHERSCAN_KEY!,
     },
     customChains: [
       {
@@ -60,12 +67,19 @@ const config: HardhatUserConfig = {
         },
       },
       {
-        
         network: "arbitrumSepolia",
         chainId: 421614,
         urls: {
             apiURL: "https://api-sepolia.arbiscan.io/api",
             browserURL: "https://sepolia.arbiscan.io/",
+        },
+      },
+      {
+        network: "scrollSepolia",
+        chainId: 534351,
+        urls: {
+            apiURL: "https://api-sepolia.scrollscan.com/api",
+            browserURL: "https://sepolia.scrollscan.com/",
         },
       },
       {
