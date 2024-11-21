@@ -81,7 +81,7 @@ abstract contract P2Pparams {
     address public daoAddress;
     IKYCWhitelist public kycAddress;
     IAMLBlacklist public amlAddress;
-    IERC20Metadata public usdtAddress;
+    IERC20Metadata public stakeToken;
     uint256 public merchantStakeAmount = 1500 * 1e6;
     uint256 public settlerStakeAmount = 1500 * 1e6;
     uint256 public settlerMinTime = 15 minutes;

@@ -69,7 +69,7 @@ export async function deployP2P() {
   const daoAddress = await owner.getAddress();
   const kycAddress = await kyc.getAddress();
   const amlAddress = await aml.getAddress();
-  const usdtAddress = await cedih.getAddress();
+  const stakeToken = await cedih.getAddress();
   const merchantStakeAmount = BigInt(1500 * 1e18);
   const settlerStakeAmount = BigInt(1500 * 1e18);
   const settlerMinTime = ONE_MINUTE * 15;
@@ -84,7 +84,7 @@ export async function deployP2P() {
     daoAddress,
     kycAddress,
     amlAddress,
-    usdtAddress,
+    stakeToken,
     merchantStakeAmount,
     settlerStakeAmount,
     settlerMinTime,

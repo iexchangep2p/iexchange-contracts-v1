@@ -4,7 +4,7 @@ import "dotenv/config";
 async function main() {
   const p2p = await ethers.getContractAt("OptimisticP2P", process.env.OP2P!);
 
-  const cd = await ethers.getContractAt("IXUSDT", process.env.IXUSDT!);
+  const cd = await ethers.getContractAt("IXUSDC", process.env.IXUSDC!);
 
   const merchantStakeAmount = BigInt(1500 * 1e18);
 

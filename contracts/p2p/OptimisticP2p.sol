@@ -20,7 +20,7 @@ contract OptimisticP2P is P2Pparams, Ownable, ReentrancyGuard, Helpers {
         address _daoAddress,
         IKYCWhitelist _kycAddress,
         IAMLBlacklist _amlAddress,
-        IERC20Metadata _usdtAddress,
+        IERC20Metadata _stakeToken,
         uint256 _merchantStakeAmount,
         uint256 _settlerStakeAmount,
         uint256 _settlerMinTime,
@@ -34,7 +34,7 @@ contract OptimisticP2P is P2Pparams, Ownable, ReentrancyGuard, Helpers {
         daoAddress = _daoAddress;
         kycAddress = IKYCWhitelist(_kycAddress);
         amlAddress = IAMLBlacklist(_amlAddress);
-        usdtAddress = IERC20Metadata(_usdtAddress);
+        stakeToken = IERC20Metadata(_stakeToken);
         merchantStakeAmount = _merchantStakeAmount;
         settlerStakeAmount = _settlerStakeAmount;
         settlerMinTime = _settlerMinTime;
@@ -50,7 +50,7 @@ contract OptimisticP2P is P2Pparams, Ownable, ReentrancyGuard, Helpers {
         address _daoAddress,
         IKYCWhitelist _kycAddress,
         IAMLBlacklist _amlAddress,
-        IERC20Metadata _usdtAddress,
+        IERC20Metadata _stakeToken,
         uint256 _merchantStakeAmount,
         uint256 _settlerStakeAmount,
         uint256 _settlerMinTime,
@@ -64,7 +64,7 @@ contract OptimisticP2P is P2Pparams, Ownable, ReentrancyGuard, Helpers {
         daoAddress = _daoAddress;
         kycAddress = IKYCWhitelist(_kycAddress);
         amlAddress = IAMLBlacklist(_amlAddress);
-        usdtAddress = IERC20Metadata(_usdtAddress);
+        stakeToken = IERC20Metadata(_stakeToken);
         merchantStakeAmount = _merchantStakeAmount;
         settlerStakeAmount = _settlerStakeAmount;
         settlerMinTime = _settlerMinTime;
@@ -133,7 +133,7 @@ contract OptimisticP2P is P2Pparams, Ownable, ReentrancyGuard, Helpers {
             revert InvalidSettlerStake(amount);
         }
         SafeERC20.safeTransferFrom(
-            usdtAddress,
+            stakeToken,
             msg.sender,
             address(this),
             amount
@@ -144,7 +144,7 @@ contract OptimisticP2P is P2Pparams, Ownable, ReentrancyGuard, Helpers {
     function setterUnstake() external onlySettlers {
         uint256 amount = settlerStake[msg.sender];
         settlerStake[msg.sender] = 0;
-        SafeERC20.safeTransfer(usdtAddress, msg.sender, amount);
+        SafeERC20.safeTransfer(stakeToken, msg.sender, amount);
         emit SettlerUnstaked(msg.sender, amount);
     }
 
@@ -155,7 +155,7 @@ contract OptimisticP2P is P2Pparams, Ownable, ReentrancyGuard, Helpers {
             revert InvalidMerchantStake(amount);
         }
         SafeERC20.safeTransferFrom(
-            usdtAddress,
+            stakeToken,
             msg.sender,
             address(this),
             amount
@@ -166,7 +166,7 @@ contract OptimisticP2P is P2Pparams, Ownable, ReentrancyGuard, Helpers {
     function merchantUnstake() external noBlacklisted onlyMerchants {
         uint256 amount = merchantStake[msg.sender];
         merchantStake[msg.sender] = 0;
-        SafeERC20.safeTransfer(usdtAddress, msg.sender, amount);
+        SafeERC20.safeTransfer(stakeToken, msg.sender, amount);
         emit MerchantUnstaked(msg.sender, amount);
     }
 

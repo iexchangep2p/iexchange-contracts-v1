@@ -15,7 +15,7 @@ async function main() {
   const momo = "Mobile Money";
   const fidelity = "Fidelity Bank";
   const mtn = "MTN Mobile Money";
-  const mtn2 = "Mtn Mobile Money";
+  // const mtn2 = "MTN Mobile Money";
   const telecel = "Telecel Mobile Money";
   const airtelTigo = "Airtel Tigo Mobile Money";
   const mp = "M-Pesa";
@@ -24,11 +24,11 @@ async function main() {
   const ze = "Zelle";
   const pm = "PerfectMoney"
 
-  // await shadow.addCurrency(euro);
-  // await shadow.addCurrency(euro);
+  // await shadow.addCurrency(cedi);
+  // await shadow.addCurrency(usd);
   // await shadow.addCurrency(shill);
   
-  await shadow.addPaymentMethod(mtn2);
+  await shadow.addPaymentMethod(pm);
   // await shadow.addPaymentMethod(mp);
   // await shadow.addPaymentMethod(mtn);
   // await shadow.addPaymentMethod(fidelity);
