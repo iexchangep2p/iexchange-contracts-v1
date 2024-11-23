@@ -22,18 +22,9 @@ async function main() {
   const ze = "Zelle";
   const pm = "PerfectMoney";
 
-  // IXUSDC
-  // IXUSDT
-  // CEDIH
-  // RAMP
-  // TRK
-
   const tokens: Record<string, string> = {
     USDC: process.env.IXUSDC!,
     USDT: process.env.IXUSDT!,
-    // CEDIH: process.env.CEDIH!,
-    // RMP: process.env.RAMP!,
-    // TRK: process.env.TRK!,
   };
 
   const rates: Record<string, number> = {
