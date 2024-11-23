@@ -8,9 +8,8 @@ AML & KYC contract with offchian zkKyc agent, find spec here [KYC Spec](./kyc.sp
 
 1. Deploy erc20 tokens or use existing ones
 
-- Cedih `CEDIH`
-- Ramp `RAMP`
-- Troken `TRK`
+- Cedih `IXUSDC`
+- Ramp `IXUSDT`
 
 2. Deploy KYC & AML Contracts
 
@@ -27,6 +26,61 @@ AML & KYC contract with offchian zkKyc agent, find spec here [KYC Spec](./kyc.sp
 6. Deploy Router
 
 ### Deployments
+
+<details>
+<summary> Ink Sepolia </summary>
+
+#### Deploy erc20 tokens
+
+##### IXUSDC
+
+Deploy - `npx hardhat run scripts/deploy_usdc.ts --network inkSepolia`
+Verify - `npx hardhat verify [IXUSDC] --network inkSepolia --contract contracts/tokens/IXUSDC.sol:IXUSDC`
+Url - <https://explorer-sepolia.inkonchain.com/address/0xACBC1eC300bBea9A9FD0A661cD717d8519c5FCA5>
+
+##### IXUSDT
+
+Deploy - `npx hardhat run scripts/deploy_usdt.ts --network inkSepolia`
+Verify - `npx hardhat verify [IXUSDT] --network inkSepolia --contract contracts/tokens/IXUSDT.sol:IXUSDT`
+Url - <https://explorer-sepolia.inkonchain.com/address/0x28cB409154beb695D5E9ffA85dA8f1564Aa3cD76>
+
+#### Deploy Token Faucet
+
+Deploy - `npx hardhat run scripts/deploy_faucet.ts --network inkSepolia`
+Verify - `npx hardhat verify --constructor-args contract-args/faucet.ts --network inkSepolia [IXFAUCET]`
+Url - <https://explorer-sepolia.inkonchain.com/address/0x935E49458145B917a0EaEE279652F724EA78d8F0>
+
+#### Deploy KYC & AML Contracts
+
+##### IEXATT
+
+Deploy - `npx hardhat run scripts/deploy_attest.ts --network inkSepolia`
+Verify - `npx hardhat verify --constructor-args contract-args/attest.ts --network inkSepolia [IEXATT]`
+Url - <https://explorer-sepolia.inkonchain.com/address/0xa7c3a5bd99E11E0d8cD21952a0133449b194d3A8>
+
+##### KYC
+
+Deploy - `npx hardhat run scripts/deploy_kyc.ts --network inkSepolia`
+Verify - `npx hardhat verify [KYC] [IEXATT] --network inkSepolia`
+Url - <https://explorer-sepolia.inkonchain.com/address/0x18604e817ad31fF53031B955f834Df4B26e5AB73>
+
+##### AML
+
+Deploy - `npx hardhat run scripts/deploy_aml.ts --network inkSepolia`
+Verify - `npx hardhat verify [AML] --network inkSepolia`
+Url - <https://explorer-sepolia.inkonchain.com/address/0xB2002EaFC86DD21eaDAed4b1a7857357a6C3f41f>
+
+#### Deploy Optimistic P2P contract
+
+Deploy - `npx hardhat run scripts/deploy_p2p.ts --network inkSepolia`
+Verify - `npx hardhat verify --constructor-args contract-args/p2p.ts --network inkSepolia [OP2P]`
+Url - <https://explorer-sepolia.inkonchain.com/address/0x08FD9b19435dD5bdbaF183EE3fe68dCD6fD709EF>
+
+##### After Deployment
+
+`npx hardhat run scripts/add_tokens.ts --network inkSepolia`
+`npx hardhat run scripts/add_currency_payments.ts --network inkSepolia`
+</details>
 
 <details>
 <summary> Scroll Sepolia </summary>

@@ -48,6 +48,11 @@ const config: HardhatUserConfig = {
       chainId: 534351,
       accounts: [process.env.PRIVATE_KEY!],
     },
+    inkSepolia: {
+      url: 'https://rpc-qnd-sepolia.inkonchain.com',
+      chainId: 763373,
+      accounts: [process.env.PRIVATE_KEY!],
+    },
   },
   etherscan: {
     apiKey: {
@@ -56,6 +61,7 @@ const config: HardhatUserConfig = {
       morphTestnet: "anything",
       arbitrumSepolia: process.env.ETHERSCAN_KEY!,
       scrollSepolia: process.env.ETHERSCAN_KEY!,
+      inkSepolia: "anything",
     },
     customChains: [
       {
@@ -80,6 +86,14 @@ const config: HardhatUserConfig = {
         urls: {
             apiURL: "https://api-sepolia.scrollscan.com/api",
             browserURL: "https://sepolia.scrollscan.com/",
+        },
+      },
+      {
+        network: "inkSepolia",
+        chainId: 763373,
+        urls: {
+            apiURL: "https://explorer-sepolia.inkonchain.com/api",
+            browserURL: "https://explorer-sepolia.inkonchain.com/",
         },
       },
       {
