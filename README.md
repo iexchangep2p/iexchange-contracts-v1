@@ -144,13 +144,13 @@ Url - <https://sepolia.scrollscan.com/address/0x08FD9b19435dD5bdbaF183EE3fe68dCD
 
 ##### IXUSDC
 
-Deploy - `npx hardhat run scripts/deploy_cd.ts --network arbTestnet`
+Deploy - `npx hardhat run scripts/deploy_usdc.ts --network arbTestnet`
 Verify - `npx hardhat verify [IXUSDC] --network arbTestnet --contract contracts/tokens/IXUSDC.sol:IXUSDC`
 Url - <https://sepolia.arbscan.org/address/0x8750753695D7F994eF159Cc52B49f0930374D4CE>
 
 ##### IXUSDT
 
-Deploy - `npx hardhat run scripts/deploy_rmp.ts --network arbTestnet`
+Deploy - `npx hardhat run scripts/deploy_usdt.ts --network arbTestnet`
 Verify - `npx hardhat verify [IXUSDT] --network arbTestnet --contract contracts/tokens/IXUSDT.sol:IXUSDT`
 Url - <https://sepolia.arbscan.org/address/0xe8fB78FD7C76A3e2f500d4302E8a75E6706804f8>
 
@@ -275,54 +275,52 @@ Url - <https://explorer-holesky.morphl2.io/address/0x1E7f97Fc8C240D2B26A42d9A505
 
 #### Deploy erc20 tokens
 
-##### Cedih
+##### IXUSDC
 
-Deploy - `npx hardhat run scripts/deploy_cd.ts --network baseTestnet`
-Verify - `npx hardhat verify [CEDIH] --network baseTestnet --contract contracts/tokens/Cedih.sol:Cedih`
-Url - <https://sepolia.basescan.org/address/0xACBC1eC300bBea9A9FD0A661cD717d8519c5FCA5>
+Deploy - `npx hardhat run scripts/deploy_usdc.ts --network baseSepolia`
+Verify - `npx hardhat verify [IXUSDC] --network baseSepolia --contract contracts/tokens/IXUSDC.sol:IXUSDC`
+Url - <https://base-sepolia.blockscout.com/address/0xf23Dd142E074534eCB784b067DBFa68a10712759>
 
-##### Ramp
+##### IXUSDT
 
-Deploy - `npx hardhat run scripts/deploy_rmp.ts --network baseTestnet`
-Verify - `npx hardhat verify [RAMP] --network baseTestnet --contract contracts/tokens/Ramp.sol:Ramp`
-Url - <https://sepolia.basescan.org/address/0x28cB409154beb695D5E9ffA85dA8f1564Aa3cD76>
+Deploy - `npx hardhat run scripts/deploy_usdt.ts --network baseSepolia`
+Verify - `npx hardhat verify [IXUSDT] --network baseSepolia --contract contracts/tokens/IXUSDT.sol:IXUSDT`
+Url - <https://base-sepolia.blockscout.com/address/0xf6A2C93fDC1d1eA25E1aEc278c13AAca884394D5>
 
-##### TRK
-
-Deploy - `npx hardhat run scripts/deploy_trk.ts --network baseTestnet`
-Verify - `npx hardhat verify [TRK] --network baseTestnet --contract contracts/tokens/Troken.sol:Troken`
-Url - <https://sepolia.basescan.org/address/0x935E49458145B917a0EaEE279652F724EA78d8F0>
+Deploy - `npx hardhat run scripts/deploy_faucet.ts --network baseSepolia`
+Verify - `npx hardhat verify --constructor-args contract-args/faucet.ts --network baseSepolia [IXFAUCET]`
+Url - <https://sepolia.kakarotscan.org/address/0x8dd31A3eB73c13D535b2F615b1c5C8D761162436>
 
 #### Deploy KYC & AML Contracts
 
 ##### IEXATT
 
-Deploy - `npx hardhat run scripts/deploy_attest.ts --network baseTestnet`
-Verify - `npx hardhat verify --constructor-args contract-args/attest.ts --network baseTestnet [IEXATT]`
-Url - <https://sepolia.basescan.org/address/0x8C49Fd0b3E42DbAE0b13Fde81E3023c626E6f198>
+Deploy - `npx hardhat run scripts/deploy_attest.ts --network baseSepolia`
+Verify - `npx hardhat verify --constructor-args contract-args/attest.ts --network baseSepolia [IEXATT]`
+Url - <https://base-sepolia.blockscout.com/address/0x963375d44E0D6A794D9cb10e8EdE80A2f1335587>
 
 ##### KYC
 
-Deploy - `npx hardhat run scripts/deploy_kyc.ts --network baseTestnet`
-Verify - `npx hardhat verify [KYC] [IEXATT] --network baseTestnet`
-Url - <https://sepolia.basescan.org/address/0xEa9Fee2c40Fc49139482a77626dAd0Dcf2b6c0C9>
+Deploy - `npx hardhat run scripts/deploy_kyc.ts --network baseSepolia`
+Verify - `npx hardhat verify [KYC] [IEXATT] --network baseSepolia`
+Url - <https://base-sepolia.blockscout.com/address/0x0906Ac92b77728A0131F172ef0CE64eB0bC2957B>
 
 ##### AML
 
-Deploy - `npx hardhat run scripts/deploy_aml.ts --network baseTestnet`
-Verify - `npx hardhat verify [AML] --network baseTestnet`
-Url - <https://sepolia.basescan.org/address/0x18604e817ad31fF53031B955f834Df4B26e5AB73>
+Deploy - `npx hardhat run scripts/deploy_aml.ts --network baseSepolia`
+Verify - `npx hardhat verify [AML] --network baseSepolia`
+Url - <https://base-sepolia.blockscout.com/address/0x945E4c081D9da869D61dc7bdC6682B54b197eb2D>
 
 #### Deploy Optimistic P2P contract
 
-Deploy - `npx hardhat run scripts/deploy_p2p.ts --network baseTestnet`
-Verify - `npx hardhat verify --constructor-args contract-args/p2p.ts --network baseTestnet [OP2P]`
-Url - <https://sepolia.basescan.org/address/0x2977c7941c59572433DF543cDBDF92a5Ae8F6267>
+Deploy - `npx hardhat run scripts/deploy_p2p.ts --network baseSepolia`
+Verify - `npx hardhat verify --constructor-args contract-args/p2p.ts --network baseSepolia [OP2P]`
+Url - <https://base-sepolia.blockscout.com/address/0x0c3C2c104A7eDeC4251f8f8D0C737B1C854207b5>
 
 ##### After Deployment
 
-`npx hardhat run scripts/add_tokens.ts --network baseTestnet`
-`npx hardhat run scripts/add_currency_payments.ts --network baseTestnet`
+`npx hardhat run scripts/add_tokens.ts --network baseSepolia`
+`npx hardhat run scripts/add_currency_payments.ts --network baseSepolia`
 </details>
 <details>
 <summary> Kakarot Sepolia</summary>

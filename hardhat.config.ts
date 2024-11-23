@@ -27,8 +27,8 @@ const config: HardhatUserConfig = {
       accounts: [process.env.PRIVATE_KEY!],
       gasPrice: 20000000000, // 2 gwei in wei
     },
-    baseTestnet: {
-      url: "https://intensive-tame-sound.base-sepolia.quiknode.pro/4eebc97d37bc1e1c22d663a99a3ddbb0a4cf41c5/",
+    baseSepolia: {
+      url: "https://sepolia.base.org",
       chainId: 84532,
       accounts: [process.env.PRIVATE_KEY!],
     },
@@ -39,24 +39,24 @@ const config: HardhatUserConfig = {
       gasPrice: 20000000000, // 2 gwei in wei
     },
     arbitrumSepolia: {
-      url: 'https://sepolia-rollup.arbitrum.io/rpc',
+      url: "https://sepolia-rollup.arbitrum.io/rpc",
       chainId: 421614,
       accounts: [process.env.PRIVATE_KEY!],
     },
     scrollSepolia: {
-      url: 'https://sepolia-rpc.scroll.io',
+      url: "https://sepolia-rpc.scroll.io",
       chainId: 534351,
       accounts: [process.env.PRIVATE_KEY!],
     },
     inkSepolia: {
-      url: 'https://rpc-qnd-sepolia.inkonchain.com',
+      url: "https://rpc-qnd-sepolia.inkonchain.com",
       chainId: 763373,
       accounts: [process.env.PRIVATE_KEY!],
     },
   },
   etherscan: {
     apiKey: {
-      baseSepolia: process.env.ETHERSCAN_KEY!,
+      baseSepolia: "anything",
       kakarotSepolia: "testnet/evm/920637907288165",
       morphTestnet: "anything",
       arbitrumSepolia: process.env.ETHERSCAN_KEY!,
@@ -76,24 +76,32 @@ const config: HardhatUserConfig = {
         network: "arbitrumSepolia",
         chainId: 421614,
         urls: {
-            apiURL: "https://api-sepolia.arbiscan.io/api",
-            browserURL: "https://sepolia.arbiscan.io/",
+          apiURL: "https://api-sepolia.arbiscan.io/api",
+          browserURL: "https://sepolia.arbiscan.io/",
+        },
+      },
+      {
+        network: "baseSepolia",
+        chainId: 84532,
+        urls: {
+          apiURL: "https://base-sepolia.blockscout.com/api",
+          browserURL: "https://base-sepolia.blockscout.com",
         },
       },
       {
         network: "scrollSepolia",
         chainId: 534351,
         urls: {
-            apiURL: "https://api-sepolia.scrollscan.com/api",
-            browserURL: "https://sepolia.scrollscan.com/",
+          apiURL: "https://api-sepolia.scrollscan.com/api",
+          browserURL: "https://sepolia.scrollscan.com/",
         },
       },
       {
         network: "inkSepolia",
         chainId: 763373,
         urls: {
-            apiURL: "https://explorer-sepolia.inkonchain.com/api",
-            browserURL: "https://explorer-sepolia.inkonchain.com/",
+          apiURL: "https://explorer-sepolia.inkonchain.com/api",
+          browserURL: "https://explorer-sepolia.inkonchain.com/",
         },
       },
       {
