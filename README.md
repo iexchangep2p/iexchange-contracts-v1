@@ -287,9 +287,11 @@ Deploy - `npx hardhat run scripts/deploy_usdt.ts --network baseSepolia`
 Verify - `npx hardhat verify [IXUSDT] --network baseSepolia --contract contracts/tokens/IXUSDT.sol:IXUSDT`
 Url - <https://base-sepolia.blockscout.com/address/0xf6A2C93fDC1d1eA25E1aEc278c13AAca884394D5>
 
+#### Deploy Token Faucet
+
 Deploy - `npx hardhat run scripts/deploy_faucet.ts --network baseSepolia`
 Verify - `npx hardhat verify --constructor-args contract-args/faucet.ts --network baseSepolia [IXFAUCET]`
-Url - <https://sepolia.kakarotscan.org/address/0x8dd31A3eB73c13D535b2F615b1c5C8D761162436>
+Url - <https://base-sepolia.blockscout.com/address/0x8dd31A3eB73c13D535b2F615b1c5C8D761162436>
 
 #### Deploy KYC & AML Contracts
 

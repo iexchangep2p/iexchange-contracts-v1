@@ -34,8 +34,7 @@ async function main() {
     NGN: 2100,
     KES: 49,
   };
-let nonce = 138;
-  for (const c of combos.slice(100)) {
+  for (const c of combos.slice(0, 100)) {
     try {
       const offerConfig = c as OfferConfig;
       const token = tokens[offerConfig.token];
@@ -60,9 +59,9 @@ let nonce = 138;
         maxOrder,
         accountHash,
         depositAddress,
-        buyType, {gasPrice: 5000000000, nonce}
+        buyType
       );
-      console.log("Created buy offer ... ",  buyTx.hash);
+      console.log("Created buy offer ... ", buyTx.hash);
       await delay(2000);
       const sellType = 1;
       const sellTx = await shadow.createOffer(
@@ -74,10 +73,10 @@ let nonce = 138;
         maxOrder,
         accountHash,
         depositAddress,
-        sellType,
+        sellType
       );
       console.log("Created sell offer ...", sellTx.hash);
-      await delay(1000);
+      await delay(2000);
     } catch (error) {
       console.log(error);
 
