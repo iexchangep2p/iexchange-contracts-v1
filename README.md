@@ -146,19 +146,19 @@ Url - <https://sepolia.scrollscan.com/address/0x08FD9b19435dD5bdbaF183EE3fe68dCD
 
 Deploy - `npx hardhat run scripts/deploy_usdc.ts --network arbTestnet`
 Verify - `npx hardhat verify [IXUSDC] --network arbTestnet --contract contracts/tokens/IXUSDC.sol:IXUSDC`
-Url - <https://sepolia.arbscan.org/address/0x8750753695D7F994eF159Cc52B49f0930374D4CE>
+Url - <https://sepolia.arbsican.io/address/0x8750753695D7F994eF159Cc52B49f0930374D4CE>
 
 ##### IXUSDT
 
 Deploy - `npx hardhat run scripts/deploy_usdt.ts --network arbTestnet`
 Verify - `npx hardhat verify [IXUSDT] --network arbTestnet --contract contracts/tokens/IXUSDT.sol:IXUSDT`
-Url - <https://sepolia.arbscan.org/address/0xe8fB78FD7C76A3e2f500d4302E8a75E6706804f8>
+Url - <https://sepolia.arbiscan.io/address/0xe8fB78FD7C76A3e2f500d4302E8a75E6706804f8>
 
 #### Deploy Token Faucet
 
 Deploy - `npx hardhat run scripts/deploy_faucet.ts --network arbTestnet`
 Verify - `npx hardhat verify --constructor-args contract-args/faucet.ts --network arbTestnet [IXFAUCET]`
-Url - <https://sepolia.arbscan.org/address/0xe38b25BC2421F5Fde72661FA4c5c3035453bfCE6>
+Url - <https://sepolia.arbiscan.io/address/0xe38b25BC2421F5Fde72661FA4c5c3035453bfCE6>
 
 #### Deploy KYC & AML Contracts
 
@@ -166,25 +166,25 @@ Url - <https://sepolia.arbscan.org/address/0xe38b25BC2421F5Fde72661FA4c5c3035453
 
 Deploy - `npx hardhat run scripts/deploy_attest.ts --network arbTestnet`
 Verify - `npx hardhat verify --constructor-args contract-args/attest.ts --network arbTestnet [IEXATT]`
-Url - <https://sepolia.arbscan.org/address/0xba15d76f67afc55455c1a9acc6b296114a42c641>
+Url - <https://sepolia.arbiscan.io/address/0xba15d76f67afc55455c1a9acc6b296114a42c641>
 
 ##### KYC
 
 Deploy - `npx hardhat run scripts/deploy_kyc.ts --network arbTestnet`
 Verify - `npx hardhat verify [KYC] [IEXATT] --network arbTestnet`
-Url - <https://sepolia.arbscan.org/address/0x13041cDFB971226Ac07c171A274cB72Ac8e209Be>
+Url - <https://sepolia.arbiscan.io/address/0x13041cDFB971226Ac07c171A274cB72Ac8e209Be>
 
 ##### AML
 
 Deploy - `npx hardhat run scripts/deploy_aml.ts --network arbTestnet`
 Verify - `npx hardhat verify [AML] --network arbTestnet`
-Url - <https://sepolia.arbscan.org/address/0x11342913a0b3814D1C39C78b3809c0b65B113eAC>
+Url - <https://sepolia.arbiscan.io/address/0x11342913a0b3814D1C39C78b3809c0b65B113eAC>
 
 #### Deploy Optimistic P2P contract
 
 Deploy - `npx hardhat run scripts/deploy_p2p.ts --network arbTestnet`
 Verify - `npx hardhat verify --constructor-args contract-args/p2p.ts --network arbTestnet [OP2P]`
-Url - <https://sepolia.arbscan.org/address/0x3B42D1dEF553EE484984C6c3c769BE58005f5d11>
+Url - <https://sepolia.arbiscan.io/address/0x3B42D1dEF553EE484984C6c3c769BE58005f5d11>
 
 ##### After Deployment
 
