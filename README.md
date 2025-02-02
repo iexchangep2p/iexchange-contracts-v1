@@ -146,7 +146,7 @@ Url - <https://sepolia.scrollscan.com/address/0x08FD9b19435dD5bdbaF183EE3fe68dCD
 
 Deploy - `npx hardhat run scripts/deploy_usdc.ts --network arbTestnet`
 Verify - `npx hardhat verify [IXUSDC] --network arbTestnet --contract contracts/tokens/IXUSDC.sol:IXUSDC`
-Url - <https://sepolia.arbsican.io/address/0x8750753695D7F994eF159Cc52B49f0930374D4CE>
+Url - <https://sepolia.arbiscan.io/address/0x8750753695D7F994eF159Cc52B49f0930374D4CE>
 
 ##### IXUSDT
 
